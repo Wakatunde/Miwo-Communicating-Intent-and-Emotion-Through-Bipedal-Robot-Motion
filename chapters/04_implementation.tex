@@ -119,8 +119,11 @@ the IMU pipeline is responsible for processing the raw sensor data from the Phid
 \textbf{Robot State Node}
 The robot state node serves as the central state monitor for the robot. The node subscribes to the filtered IMU messages and the cartesian body state of the robot. This node also serves as a simple GUI for the user of the robot by displaying control modes, available actions, the published roll, pitch, and yaw in degrees, and the robots cartesian state in x, y, and z values. Upon startup, the node will also perform an automatic IMU calibration of the orientation by collecting IMU data over a period of 2 seconds while the robot sits in the calibration stand, setting the current orientation to be [0,0,0]. A manual recalibration service is also provided, allowing the user to reset the IMU offsets at any point during testing.
 \subsection{Motion control}
+
 \subsubsection{Cartesian Body Controller}
+The cartesian body controller serves as the central control node for the robot's motion.
 \subsubsection{Leveling Node}
+The leveling node was implemented to provide automatic body leveling based on the feedback from the available IMU data. It works by subscribing to the IMU orientation estimates and then computes corrective body twist commands to counteract any roll or pitch errors relative to the calibrated reference level. The correction is computed by using a quadratic dampening scheme to apply large corrections when the error is large and slows down the correction as the error is minimized preventing overshoots and oscillations. The leveling can be activated at any time by the use of a ROS2 service call allowing it to be used selectively during operation. The leveling node was implemented to solve an issue surrounding that the legs had a slight give after the robot was taken of the calibration stand. As the robot was placed on solid ground with no support the robots orientation would sag slight under the influence of gravity. By implementing the leveling node one could simply call the leveling service after 
 
 \section{Expressive Motion Design}
 \subsection{Forward Kinematics}
