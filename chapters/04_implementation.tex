@@ -1,0 +1,133 @@
+\chapter{Implementation}
+This chapter provides an overview of the work done to develop the MiWo platform, covering the physical design and construction of the robot, expressive motion design, and locomotion via reinforcement learning
+The main goal of this thesis was to construct a robot with a high level of articulation and the capability to communicate emotion and intent through combined movements. Achieving natural and expressive motion across a platform with 16 degrees of freedom requires careful design of both hardware and software. The final platform assumes a biped form-factor as it offers an inherent familiarity to human observers, which is particularly important when evaluating how well the robot communicates emotion and intent. Legged systems also offer a high potential for adaptability and stability in different environments and terrains.
+
+The implementation can be divided into 2 parallel work-streams: the physical system and the software systems that are used to generate motion. The physical/hardware side includes the mechanical design, 3D-printing, electronics, and actuators. The software side covers the ROS2 control architecture, inverse kinematics solvers, expressive motion framework, and the reinforcement learning pipeline used to generate locomotion. 
+
+This chapter begins with the physical design and construction of the robot, followed by the software architecture that ties the system together. Expressive motion design is then presented, covering the kinematics and strategies used for generating the expressive motion. Finally, the reinforcement learning used to derive the gait will be discussed.
+
+\section{Design and construction of robot platform}
+\subsection{Leg architecture and design}
+The robot stands on 2 legs, and each one is built up with 5 motors, forming a 5 degree-of-freedom kinematic chain. The leg assembly was designed with the goal of having efficient control of the position and orientation of the robot legs relative to the body. Starting from the ground up, the chain begins at the ankle joint, controlling the forward and backward pitch of the foot. Moving upwards, we have the knee joint, responsible for controlling the forward and backward pitch of the lower leg. The upper leg then connects to the hip assembly. 
+
+\textbf{The hip assembly} consists of 3 consecutive joints: hip pitch, hip roll, and hip yaw. One design choice made to simplify the calculations of the inverse and forward kinematics was to construct the hip as a spherical joint. By arranging the 3 rotational axes of the hip joints to intersect at a common point, we are able to simplify the kinematics by decoupling the position and orientation of the legs.
+
+\textbf{The feet} were designed with modularity in mind to conduct testing more easily on different surfaces. Each foot consists of 2 separate parts: An upper component connected directly to the ankle joint and a removable sole that slides smoothly into the upper section and is secured by a small angled 3D-printed peg. The sole section of the foot has a rounded bottom to allow for lateral movement of the body by enabling the robot to shift its weight across the rounded exterior more easily. This design allowed for the possibility of easily replacing or testing different sole geometries. Examples include modifying the degree of rounding underneath the sole or testing different textures or materials for improved grip/stability without needing to reprint the full foot assembly.
+
+\textbf{The shin and femur} link were designed to be intentionally asymmetric with a more organic curvature rather than straight rods. This was done to make the robots appearance more life-like to supplement the expressive goals of the platform. The idea was that having a more natural, animal-like design would contribute to the appearance of the robot and make it feel more alive to the human observers.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/leg_architecture.png}
+    \caption{The 5 degree-of-freedom leg kinematic chain of Miwo, 
+    from ankle pitch through to hip yaw.}
+    \label{fig:leg_architecture}
+\end{figure}
+
+\subsection{Body Frame and Torso}
+The two leg assemblies are connected by a central base link acting as the pelvis and also serving as the structural foundation of the platform. 
+\textbf{The Base link} is directly connected to the left and right hip yaw motors and acts as the reference frame for the computation of the kinematics. As this is the central link of the robot, it was designed with the goal of being strong and rigid to support the forces produced by the robots legs.  The base link was also designed to account for testing the kinematics in a safe manner by having a circular hole to accommodate a carbon fiber rod that serves as support when initially testing the inverse kinematics. In addition to the base frame, a small bracket was designed to house a circular linear bearing to allow for smooth, supported vertical motion. To support the carbon fiber rod, a small stand was also designed to keep it straight and allow it to be clamped to a table for increased stability. This was a more novel approach to testing the kinematics, as it was not the ideal material for building a safe and secure test rig; however, all the materials mentioned above were easily available at the time.
+
+\textbf{The internal frame} follows the base frame and can be split into two parts: a lightweight outer frame and a stringer inner frame. The inner frame was designed to provide a larger structural foundation for mounting the outer frame and the neck pitch motor housed in the torso. The outer frame is mounted to the inner frame structure and acts as the scaffolding for supporting the outer shell and housing the internal electronics and cable management within the robot.
+
+\textbf{The internal components} of the torso are organized in the following way: The battery rests on top of the base link to keep a stable center of gravity and is held in place by a thin clamp secured directly to the base link. The clamp secures the rectangular battery on 3 sides, allowing the battery to slide out of the clamp for easy removal by the user. Above the battery is a small basket attached to the outer frame structure, designed to house the internal electronics including the IMU and the DC/DC voltage converter. The backside of the robots torso offers a larger area of free space designed to house the excess length of wires connecting the different electrical components.
+
+\textbf{The outer shell} of the robot was designed to give the robot its final appearance and was mounted directly to the outer frame of the torso. The outer shell was designed to be modular and is separated into 5 different parts. The front and back plates were separated into an upper and lower part to allow for quick reprinting of damaged parts without having to reprint the entire shell. The final part of the outer shell is the section that is mounted directly above the base frame. This part was designed to be easily removed, giving the user easy access to the battery and internal electronics, allowing for service and battery replacement without having to remove the entire outer shell.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/body_architecture.png}
+    \caption{The body and torso frames of the robot.}
+    \label{fig:head_architecture}
+\end{figure}
+
+\subsection{Head and Neck Architecture}
+The head and neck assembly provides 6 degrees of freedom designed  to allow for a wide range of expressive motions, including nodding, tilting, turning, and secondary actions with antenna movements. The kinematic chain of the upper body begins with the neck pitch motor that is mounted directly to the inner frame of the robots torso.
+ 
+The neck link is responsible for controlling the heads position and was designed to mount directly to the neck pitch motor and to house the head pitch motor, starting the chain that controls the position and orientation of the robots head. At this point in the kinematic chain, the larger robotic actuators are replaced with smaller Dynamixel(XM430) servomotors due to their smaller form factor and the lower torque requirements of the upper body.
+
+\textbf{The head links} are designed to connect the head pitch, yaw, and roll motors that are responsible for controlling the orientation of the robots head. Unlike the hip assembly, the tree head rotation axes do not form a spherical joint. This was a deliberate decision, as the head would be controlled by commanding each of the joint angles directly, making the solving of a full kinematic chain unnecessary, thereby simplifying both the mechanical design and control software.
+Designing these links was one of the more challenging aspects of the head assembly. Official dynamixel side-mounting screws are short, constraining the thickness of the links to approximately 1.5 mm, matching the official brackets in metal. To replicate this with PLA proved to be a challenge, as these were the only links that consistently failed during testing. This issue was solved by adding recessed indents around screw holes for better thread engagement, reinforcing high stress areas with supporting structures, and increasing the wall loop count in the slices prior to printing the parts. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/head_architecture.png}
+    \caption{The head and neck kinematic chain of Miwo, from neck 
+    pitch through to head roll.}
+    \label{fig:head_architecture}
+\end{figure}
+
+\textbf{The face link} forms the structural base and was designed to be both rigid and lightweight to reduce backlash and strain on the roll, pitch, and yaw motors controlling the head. The face link is mounted directly to the head roll motor and serves as the housing for a significant amount of electrical components. These include: the NVIDIA Orin serving as the onboard computer, two 1.46 inch LCD displays for the eyes, two 9g servos for antenna actuation, an Arduino nano for servo control, a U2D2 board for communicating with the Dynamixel servos, an Adafruit servo driver board, a voltage regulator, and multiple USB cables allowing for serial communication across all components through the NVIDIA Orin nano. The face link was also designed with the mounting of components in a neat manner. Each component would have a dedicated mounting location with either raised screw bosses extruding from the bed of the face link or recessed grooves that allow components to be seated in place before being fastened. Some components required the design of dedicated mounts, such as the two LCD screens and the two 9g servos. Additionally, a series of spare mounting holes were included in the base of the face link to allow for future components to be added without requiring a redesign of the full face link. To finish the design of the head, a removable top cover was designed to be simple, lightweight, and easily removable to access the internal components of the robot.
+
+It should be noted that the face link was originally designed around a different set of internal components. When the initial components did not work as intended, they were replaced, but the face link design was retained as it still provided a sufficient and compatible mounting for the new components. by designing the face link with spare mounting capabilities, it was able to accommodate a change in hardware without having to redesign the full face link.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/head_architecture.png}
+    \caption{The face link of the robot designed to house the internal components..}
+    \label{fig:face_architecture}
+\end{figure}
+
+\subsection{Materials and Fabrication}
+All structural components and links of the robot platform were fabricated using PLA filament with a Bambu lab A1 or A1 mini 3D printer. PLA was chosen for being affordable, readily available, and lightweight, making it well suited for a platform where weight and accessibility were key priorities in the design process. By fabricating all parts with 3D printing , the cost of the platform was minimized and different iterations could be tested physically within hours of being modeled, supporting the rapid prototyping approach that was used for this project. The use of widely available materials and commercial 3D printers ensures that the platform could be easily replicated by other researchers or developers, in line with the goal of contributing to the research field by making the platform open-source.
+
+\textbf{The assembly} of the final platform uses 3 categories of fasteners depending on the component being attached. All links that were mounted directly to the GO-M8010-r actuators use M3.5 screws for mounting links to the stator and M4 screws for mounting links to the Rotor. The links that are mounted to the Dynamixel XM430 servos use the official mounting screws supplied with the motors The remainder of the assembly was mounted using standard M3 screws in either 10mm or 18.25mm lengths, depending on the required engagement depth.
+
+
+\section{Software Architecture}
+The software system for the Miwo platform was developed on the ROS2 Humble framework running on a device with Ubuntu 22.04. ROS 2 was used because it enables a modular architecture by having individual nodes that communicate by subscribing and publishing data to named channels (topics) or by calling services and actions. This architecture allows the final system to be taken apart into smaller, independently runnable components, facilitating a more comfortable process of development and testing.
+
+the software system can be divided into 3 different hierarchical levels, as illustrated in Figure ~\ref{fig:software_architecture}. The lowest level is responsible for the low-level control of the system and is titled the hardware interface layer. The hardware interface layer consists of a set of bridge nodes. The bridge nodes are responsible for translating the ROS2 commands to low-level motor commands and reading back the hardware state, allowing us to control the hardware directly. One level above sits the state estimator layer, which is responsible for processing the raw sensor data from the IMU and computing the robot's current orientation and body pose. The uppermost layer is the motion control layer, which is responsible for generating body pose commands based on the provided input. The input may come from joystick commands, expressive motion sequencer nodes, or a reinforcement learning policy. The layer is then responsible for translating these commands into the different joint trajectories for each of the motors using an inverse kinematics solver.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.6\textwidth}{
+        \centering
+        \vspace{2cm}
+        \textit{Figure placeholder — software architecture diagram}
+        \vspace{2cm}
+    }}
+    \caption{Overview of the Miwo software architecture showing 
+    the three main layers: hardware interface, state estimation, 
+    and motion control.}
+    \label{fig:software_architecture}
+\end{figure}
+
+\subsection{Hardware Interface Layer}
+The hardware interface layer is, as mentioned, responsible for the direct communication between the ROS2 system and the physical actuators of the robot. This layer consists of 5 bridge nodes, each responsible for bridging the ROS2 system and the control protocol of the different actuators.
+\subsubsection*{Unitree Motor Bridges}
+The Unitree Motor bridges handle the communication between the ROS2 system and the 11 GO-M8010-6 actuators that control the two legs and the neck. There are a total of 3 separate bridges: the left leg, the right leg, and the neck bridge, each communicating with their respective motors split across 2 separate serial ports—one covering the left leg and the other covering the right leg and the neck.
+
+Separating the motors across different serial ports was motivated by 2 main reasons. First, each serial port has a fixed bandwidth, and having all eleven motors on a single connection created a communication bottleneck where motors had to wait for each other before their commands were sent. This introduced latency and jitter into the control loop, causing undesired motion in the system. Second, running each of the bridges across 2 ports with their own control loop would ensure that communication errors on one port or bridge do not block or affect the operation of the other port or bridge. This made it easier to isolate the source of errors and also increased the overall fault tolerance of the system.
+Each of the bridge nodes operates with an internal control loop at 50 Hz, receiving joint trajectory commands from the ROS2 controllers and sending low level position, velocity, and torque commands using the Unitree Actuator SDK. The bridge node interpolates the incoming trajectory way-points by using a first order hold scheme for smooth motion. The interpolation is also paired with a low pass filter with a cutoff frequency of 37.5 Hz applied to the motor, similar to the work of \cite{grandia_design_2024}. Joint limits are also enforced in software to prevent commands that could damage the hardware. The Bridge also deploys a gradual gain ramp-up period on startup to further prevent sudden large torques when the motors are first enabled.
+The bridges were designed to be started when the robot is placed in its dedicated calibration stand, which holds the robot in a fixed neutral position with the legs fully extended and the neck pitched back. On startup, each bridge will read the current encoder position of all motors and store it as the zero reference point for that run. The following joint angle commands are then interpreted relative to these zero positions instead of using absolute encoder values. This ensures that the robot starts from a consistent and known configuration for each run. This approach was implemented to account for potential encoder drift accumulation or power cycle inconsistencies between runs, which could cause the robot to move to incorrect positions and potentially damage the hardware. Upon startup, there is also a programmed smooth forward pitch so that all Unitree actuators match the zero-position of the urdf file of the robot. 
+
+\subsubsection*{Dynamixel Head Bridge}
+The dynamixel head bridge handles the communication between the 3 XM430 servo motors controlling the head roll, pitch, and yaw. The dynamixel motors build a smaller kinematic chain and communicate over a common TTL bus using the Dynamixel SDK and the Dynamixel communication Protocol. The communication between the onboard computer and the servos is handled by a U2D2 USB communication converter. 
+The bridge node operates in a similar manner to the Unitree bridge by providing 2 modes depending on the incoming commands. For continuous real-time control, such as joystick input, the bridge subscribes to the joint trajectory commands published to the head controller topic and then translates those commands into Dynamixel position commands. For smooth motion commands, like moving to a predefined pose, the bridge uses a FollowJointTrajectory action server that accepts a goal trajectory and then interpolates smoothly between start and goal positions over a specified period of time.
+The node also applies a deadband threshold to incoming position commands to prevent unnecessary motor activity from small or noisy commands. Additional configurations were also applied to the motors prior to deployment, directly on the servo hardware using the official setup wizard. The motors were configured with a smooth motion profile by setting the profile velocity and profile acceleration to low values to generate smooth, pleasant motion. Motor limits were also enforced directly in the setup of the motors.
+The logic of the dynamixel bridge differs from the Unitree bridge at startup, as this bridge reads the current position of all three servos and stores them as the initial tracked positions. The 3 servos have predefined idle position values that correspond to the head having 0 degrees of roll, pitch, and yaw. This approach provides a known and previously calibrated neutral head position to which we can command the robot to return when not actively commanding it. If a servo fails for some reason and prevents torque from being enabled on startup, the bridge will automatically attempt to reboot the affected servo before retrying, further increasing the reliability of the startup sequence.
+\subsubsection*{Antenna Bridge}
+The antenna bridge is responsible for controlling the two 9g servos that manage the antenna movement of the robot. Unlike the two other bridges that communicate directly with the onboard computer over a serial connection, the antenna servos are driven by an Adafruit PCA9685 16-channel PWM servo driver board. The PCA9685 is a dedicated PWM controller that generates the PWM signals required to position the servo motors. The PCA9685 communicates with an Arduino Nano over the I2C bus, the Arduino receives the position commands from the onboard Jetson over a USB serial connection. This chain of communication (Jetson - Arduino - PCA9685 - Servo) was chosen because the Jetson does not natively generate hardware PWM signals suitable for the servos used, and the Arduino provides a simple and widely available solution for bridging the communication. The bridge node subscribes to joint trajectory messages published to the antenna controller topic and translates the commands to PWM signals forwarded to the Arduino Nano. The Arduino runs a dedicated script that forwards the PWM signals received to the PCA9685, updating the servo positions. The antennas are not involved in the balance or inverse kinematics of the robot and act independently, allowing for movement to be layered on top of other motions. In the context of expressive motion, the antenna motion will serve as a secondary action previously mentioned in the animation principles.
+\subsubsection*{Eye Control Node}
+The robots eyes are controlled from the onboard computer with an independent node. The node communicates with the two LCD displays over Wi-Fi, sending expression commands that correspond to a predefined set of different expressions like [happy, sad, squint, angry, idle]. The node also supplies the robot with realistic blinking by periodically publishing a blink signal 
+\subsection{State Estimation}
+\subsubsection{IMU Pipeline}
+\subsubsection{Robot State Node}
+\subsection{Body Pose Control}
+\subsubsection{Cartesian Body Controller}
+\subsubsection{Leveling Node}
+
+\section{Expressive Motion Design}
+\subsection{Forward Kinematics}
+\subsection{Inverse Kinematics}
+\subsection{Motion Primitives}
+\subsection{Expressive Motion Design}
+\subsection{Motion Sequencer}
+
+\section{Locomotion via Reinforcement Learning}
+\subsection{Simulation environment setup}
+\subsection{Observation and action space}
+\subsection{Reward function design}
+\subsection{Training setup and hyper-parameters}

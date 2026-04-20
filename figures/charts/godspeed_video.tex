@@ -1,0 +1,79 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=3.0]
+\def\N{5}
+\def\levels{5}
+% Colors
+\colorlet{spiderline}{emotion}
+\colorlet{spiderfill}{emotion}
+% Axis labels and values
+\def\labels{{"Anthropomorphism", "Animacy", "Likeability", 
+             "Perceived\\Intelligence", "Perceived\\Safety"}}
+\def\values{{3.15, 3.49, 4.45, 3.45, 4.19}}
+% Draw background grid rings
+\foreach \lev in {1,...,5}{
+    \draw[gray!25, line width=0.4pt]
+        \foreach \i in {1,...,5}{
+            -- ({(\lev/5)*cos(90+(\i-1)*360/5)},
+               {(\lev/5)*sin(90+(\i-1)*360/5)})
+        } -- cycle;
+}
+% Draw axis lines
+\foreach \i in {1,...,5}{
+    \draw[gray!35, line width=0.4pt]
+        (0,0) -- ({cos(90+(\i-1)*360/5)}, {sin(90+(\i-1)*360/5)});
+}
+% Draw tick labels on one axis (right side)
+\foreach \lev in {1,...,5}{
+    \node[font=\tiny, gray] at 
+        ({(\lev/5)*cos(90)}, {(\lev/5)*sin(90)+0.06}) {\lev};
+}
+% Plot data — video study
+\fill[spiderfill, opacity=0.2]
+    ({(3.15/5)*cos(90)},   {(3.15/5)*sin(90)})   --
+    ({(3.49/5)*cos(90-72)}, {(3.49/5)*sin(90-72)}) --
+    ({(4.45/5)*cos(90-144)},{(4.45/5)*sin(90-144)}) --
+    ({(3.45/5)*cos(90-216)},{(3.45/5)*sin(90-216)}) --
+    ({(4.19/5)*cos(90-288)},{(4.19/5)*sin(90-288)}) --
+    cycle;
+\draw[spiderline, line width=1.8pt]
+    ({(3.15/5)*cos(90)},   {(3.15/5)*sin(90)})   --
+    ({(3.49/5)*cos(90-72)}, {(3.49/5)*sin(90-72)}) --
+    ({(4.45/5)*cos(90-144)},{(4.45/5)*sin(90-144)}) --
+    ({(3.45/5)*cos(90-216)},{(3.45/5)*sin(90-216)}) --
+    ({(4.19/5)*cos(90-288)},{(4.19/5)*sin(90-288)}) --
+    cycle;
+% Data point dots
+\foreach \val/\angle in {
+    3.15/90, 3.49/18, 4.45/-54, 3.45/-126, 4.19/-198}{
+    \filldraw[spiderline] 
+        ({(\val/5)*cos(\angle)}, {(\val/5)*sin(\angle)}) 
+        circle (1pt);
+}
+% Value labels next to dots
+\node[font=\tiny, above] at 
+    ({(3.15/5)*cos(90)+0.0},   {(3.15/5)*sin(90)+0.08})   {3.15};
+\node[font=\tiny, right] at 
+    ({(3.49/5)*cos(18)+0.06},  {(3.49/5)*sin(18)})        {3.49};
+\node[font=\tiny, right] at 
+    ({(4.45/5)*cos(-54)+0.06}, {(4.45/5)*sin(-54)})       {4.45};
+\node[font=\tiny, left] at 
+    ({(3.45/5)*cos(-126)-0.06},{(3.45/5)*sin(-126)})      {3.45};
+\node[font=\tiny, left] at 
+    ({(4.19/5)*cos(-198)-0.06},{(4.19/5)*sin(-198)})      {4.19};
+% Axis labels
+\node[font=\small, above, align=center] at 
+    ({1.22*cos(90)},   {1.22*sin(90)})    {Anthropomorphism};
+\node[font=\small, right, align=left] at 
+    ({1.22*cos(18)},   {1.22*sin(18)})    {Animacy};
+\node[font=\small, right, align=left] at 
+    ({1.22*cos(-54)},  {1.22*sin(-54)})   {Likeability};
+\node[font=\small, left, align=right] at 
+    ({1.22*cos(-126)}, {1.22*sin(-126)})  {Perceived\\Intelligence};
+\node[font=\small, left, align=right] at 
+    ({1.22*cos(-198)}, {1.22*sin(-198)})  {Perceived\\Safety};
+\end{tikzpicture}
+\caption{Godspeed questionnaire results for the video-based study 
+(N=22) across five dimensions. Scores are on a scale of 1 to 5.}
+\label{fig:godspeed_video}
+\end{figure}

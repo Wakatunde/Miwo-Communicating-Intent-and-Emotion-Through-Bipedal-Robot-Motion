@@ -1,0 +1,71 @@
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    bar width=12pt,
+    width=11cm,
+    height=8cm,
+    ymin=0, ymax=1.1,
+    ytick={0, 0.2, 0.4, 0.6, 0.8, 1.0},
+    ylabel={Recognition rate},
+    xlabel={Animation},
+    xtick=data,
+    symbolic x coords={A1, A2, A3, A4, A5, A6},
+    xticklabels={
+        {Curiosity},
+        {Happiness},
+        {Sadness},
+        {Frustrated},
+        {Anger},
+        {Fear}
+    },
+    x tick label style={
+        font=\small,
+        rotate=20,
+        anchor=east,
+        yshift=-4pt,
+    },
+    legend style={
+        at={(0.5,-0.35)},
+        anchor=north,
+        legend columns=2,
+        font=\small,
+        column sep=10pt,
+    },
+    enlarge x limits=0.15,
+    tick label style={font=\small},
+    label style={font=\small},
+    xlabel style={yshift=-10pt},
+    ymajorgrids=true,
+    grid style={line width=0.2pt, draw=gray!30},
+    nodes near coords,
+    nodes near coords align={vertical},
+    every node near coord/.append style={font=\tiny},
+    point meta=explicit symbolic,
+]
+
+% Live study — navy
+\addplot+[ybar, fill=navyblue, draw=white, line width=0.5pt]
+    coordinates {
+        (A1, 0.36) [0.36]
+        (A2, 1.00) [1.00]
+        (A3, 0.91) [0.91]
+        (A4, 0.82) [0.82]
+        (A5, 1.00) [1.00]
+        (A6, 0.73) [0.73]
+    };
+
+% Video study — orange
+\addplot+[ybar, fill=emotion, draw=white, line width=0.5pt]
+    coordinates {
+        (A1, 0.05) [0.05]
+        (A2, 0.95) [0.95]
+        (A3, 0.95) [0.95]
+        (A4, 0.32) [0.32]
+        (A5, 0.95) [0.95]
+        (A6, 0.36) [0.36]
+    };
+
+\legend{Live study (N=11), Video study (N=22)}
+
+\end{axis}
+\end{tikzpicture}

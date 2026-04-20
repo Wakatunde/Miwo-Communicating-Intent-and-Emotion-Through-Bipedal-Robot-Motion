@@ -1,0 +1,74 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    ybar stacked,
+    bar width=36pt,
+    width=14cm,
+    height=9cm,
+    ymin=0, ymax=11,
+    ytick={0,2,4,6,8,10,11},
+    ylabel={Number of responses},
+    xlabel={Animation},
+    xtick=data,
+    symbolic x coords={A1, A2, A3, A4, A5, A6},
+    xticklabels={
+        {Curiosity},
+        {Happiness},
+        {Sadness},
+        {Frustrated},
+        {Anger},
+        {Fear}
+    },
+    x tick label style={
+        font=\small,
+        rotate=20,
+        anchor=east,
+        yshift=-5pt,
+    },
+    legend style={
+        at={(0.5,-0.28)},
+        anchor=north,
+        legend columns=3,
+        font=\small,
+        column sep=10pt,
+    },
+    enlarge x limits=0.12,
+    tick label style={font=\small},
+    label style={font=\small},
+    xlabel style={yshift=-10pt},
+    ymajorgrids=true,
+    grid style={line width=0.2pt, draw=gray!30},
+]
+
+\addplot+[ybar, fill=intended, draw=white, line width=0.5pt]
+    coordinates {
+        (A1, 4)(A2, 11)(A3, 10)(A4, 9)(A5, 11)(A6, 8)
+    };
+
+\addplot+[ybar, fill=adjacent, draw=white, line width=0.5pt]
+    coordinates {
+        (A1, 5)(A2, 0)(A3, 1)(A4, 2)(A5, 0)(A6, 2)
+    };
+
+\addplot+[ybar, fill=other, draw=white, line width=0.5pt]
+    coordinates {
+        (A1, 2)(A2, 0)(A3, 0)(A4, 0)(A5, 0)(A6, 1)
+    };
+
+\legend{
+    Intended emotion,
+    Adjacent/related emotion,
+    Other
+}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Distribution of emotion recognition responses across all six
+animations for the live study (N=11). Responses were grouped
+into three categories: intended emotion (matching the target),
+adjacent/related emotion (overlapping emotional state), and other
+(unrelated responses). Dark purple indicates correct identification
+of the intended emotion.}
+\label{fig:emotion_recognition_live}
+\end{figure}

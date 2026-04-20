@@ -1,0 +1,75 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    bar width=8pt,
+    width=14cm,
+    height=9cm,
+    ymin=0, ymax=5,
+    ytick={0,1,2,3,4,5},
+    ylabel={Mean score (1--5)},
+    xlabel={Animation},
+    xtick=data,
+    symbolic x coords={A1, A2, A3, A4, A5, A6},
+    xticklabels={
+        {Curiosity},
+        {Happiness},
+        {Sadness},
+        {Frustrated},
+        {Anger},
+        {Fear}
+    },
+    x tick label style={
+        font=\small,
+        rotate=20,
+        anchor=east,
+        yshift=-4pt,
+    },
+    legend style={
+        at={(0.5,-0.35)},
+        anchor=north,
+        legend columns=3,
+        font=\small,
+        column sep=10pt,
+    },
+    enlarge x limits=0.12,
+    tick label style={font=\small},
+    label style={font=\small},
+    xlabel style={yshift=-10pt},
+    ymajorgrids=true,
+    grid style={line width=0.2pt, draw=gray!30},
+]
+
+% Confidence — dark purple
+\addplot+[ybar, fill=intended, draw=white, line width=0.5pt]
+    coordinates {
+        (A1,3.09)(A2,4.23)(A3,4.45)(A4,3.18)(A5,4.50)(A6,3.23)
+    };
+
+% Expressiveness — lavender
+\addplot+[ybar, fill=adjacent, draw=white, line width=0.5pt]
+    coordinates {
+        (A1,3.82)(A2,4.05)(A3,4.55)(A4,3.32)(A5,4.41)(A6,3.73)
+    };
+
+% Naturalness — orange
+\addplot+[ybar, fill=other, draw=white, line width=0.5pt]
+    coordinates {
+        (A1,3.50)(A2,3.64)(A3,4.23)(A4,3.32)(A5,4.18)(A6,3.82)
+    };
+
+\legend{
+    Confidence,
+    Expressiveness,
+    Naturalness
+}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Mean Likert scale scores per animation for the video-based 
+study (N=22). Each animation shows three bars representing mean 
+confidence, expressiveness, and naturalness ratings on a scale of 
+1 to 5.}
+\label{fig:likert_video}
+\end{figure}

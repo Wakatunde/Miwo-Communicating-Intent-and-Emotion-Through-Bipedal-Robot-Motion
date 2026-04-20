@@ -1,0 +1,111 @@
+\documentclass[UKenglish,font=times]{Template_Files/uiomasterthesis}
+% Packages
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{float}
+\usepackage{xcolor}
+\definecolor{navyblue}{HTML}{1e6fa8}
+\definecolor{lightblue}{HTML}{85B7EB}
+\definecolor{teal}{HTML}{5DCAA5}
+\definecolor{amber}{HTML}{EF9F27}
+\definecolor{coral}{HTML}{F0997B}
+\definecolor{lightgrey}{HTML}{D3D1C7}
+\definecolor{intended}{HTML}{534AB7}
+\definecolor{adjacent}{HTML}{AFA9EC}
+\definecolor{other}{HTML}{D85A30}
+\definecolor{emotion}{HTML}{E86020}
+\definecolor{hot1}{HTML}{D32F2F}
+\definecolor{hot2}{HTML}{F57C00}
+\definecolor{neutral}{HTML}{F9C440}
+\definecolor{cool1}{HTML}{29B6A8}
+\definecolor{cool2}{HTML}{1565C0}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{float}
+\usepackage{newtxtext,newtxmath}
+\usepackage{sectsty}
+\usepackage{setspace}
+\usepackage{pgf-pie}
+\usepackage{subcaption}
+\allsectionsfont{\rmfamily}
+\usepackage{babel, csquotes, graphicx, textcomp, varioref}
+\usepackage{Template_Files/uiomasterfp}
+\usepackage[backend=biber,style=numeric-comp]{biblatex}
+\usepackage[hidelinks, hypertexnames=false]{hyperref}
+\usepackage{amsmath}
+
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\setcounter{tocdepth}{3}  % Show down to subsubsection
+\setcounter{secnumdepth}{3}   % Number subsubsections in document
+
+% Graphics and bibliography paths
+\graphicspath{{Template_Files/}{figures/}}
+\addbibresource{bibliography/references.bib}
+\addbibresource{bibliography/Zotero.bib} 
+
+
+% Metadata
+\title{Miwo: Communicating Intent and Emotion Through Bipedal Robot Motion}
+\subtitle{An Open-Source Platform for Expressive Human-Robot Interaction}
+\author{Michael Wolckmar}
+
+\begin{document}
+
+% Front page
+\uiomasterfp[
+  dept={Department of Informatics},
+  program={Cybernetics and Autonomous Systems},
+  supervisor={Tønnes Nygaard},
+  % supervisors={Name A\and Name B},  % if multiple
+  long]
+
+% Front matter
+\frontmatter{}
+
+\begin{abstract}
+  
+\end{abstract}
+
+\begin{xabstract}[Sammendrag]
+  Here comes the Norwegian abstract if required.
+\end{xabstract}
+
+\tableofcontents{}
+\listoffigures{}
+\listoftables{}
+
+\begin{preface}
+\textbf{Acknowledgements}
+
+Firstly I would like to thank my supervisor Tønnes Frostad Nygaard for his valuable insight, feedback and guidance throughout the entire process. This guidance was crucial for the completion of this thesis.
+
+I would also like to thank my fellow students whom I had the pleasure of spending time with through my master's degree. I would also like to give a special thanks to those who sat with me in the ITS basement; your participation, insight and ideas were a massive help and motivation for completing my thesis.
+
+Finally, a huge thank you to my family, friends, fellow students and others who participated in trials, providing me with all the crucial data needed to effectively complete the thesis.
+\end{preface}
+
+
+% Main content
+\mainmatter{}
+
+\input{chapters/01_introduction}
+\input{chapters/02_background}
+\input{chapters/03_Tools and engineering process}
+\input{chapters/04_implementation}
+\input{chapters/05_experiments}
+\input{chapters/06_Results}
+\input{chapters/07_Discussion}
+\input{chapters/08_Conclusion}
+\input{chapters/09_Future_Work}
+
+% Back matter
+\backmatter{}
+\printbibliography{}
+
+% Appendices
+\appendix
+
+
+\end{document}
