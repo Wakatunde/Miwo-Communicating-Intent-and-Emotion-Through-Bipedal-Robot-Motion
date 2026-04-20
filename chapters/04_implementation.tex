@@ -114,9 +114,11 @@ The antenna bridge is responsible for controlling the two 9g servos that manage 
 The robots eyes are controlled from the onboard computer with an independent node. The node communicates with the two LCD displays over Wi-Fi, sending expression commands that correspond to a predefined set of different expressions like [happy, sad, squint, angry, idle]. The node also supplies the robot with realistic blinking by periodically publishing a blink command at random intervals with a randomized set of different blink animations, including [fast blink, single eye blink, slow blink, asymmetrical blink], which have different weights, to give a more lifelike blinking experience. In addition to sending out blink signals, the node also subscribes to an eye command topic, allowing the later discussed animation nodes to publish eye commands at specific parts of of longer expressive motions.
 
 \subsection{State Estimation}
-\subsubsection{IMU Pipeline}
-\subsubsection{Robot State Node}
-\subsection{Body Pose Control}
+\textbf{IMU pipeline}
+the IMU pipeline is responsible for processing the raw sensor data from the Phidgets spatial IMU to produce a stable estimate of the robots orientation. The raw data from the IMU is published to the Phidgets ROS2 driver and then fed into a Madgwick filter that fuses the 2 sensor streams to produce an orientation estimate in quaternions. The Madgwick filter was chosen for its computational efficiency and accurate orientation tracking matching the requirements of the system. The resulting orientation is then continuously published as a standard ROS2 message to a separate state node for further processing. 
+\textbf{Robot State Node}
+The robot state node serves as the central state monitor for the robot. The node subscribes to the filtered IMU messages and the cartesian body state of the robot. This node also serves as a simple GUI for the user of the robot by displaying control modes, available actions, the published roll, pitch, and yaw in degrees, and the robots cartesian state in x, y, and z values. Upon startup, the node will also perform an automatic IMU calibration of the orientation by collecting IMU data over a period of 2 seconds while the robot sits in the calibration stand, setting the current orientation to be [0,0,0]. A manual recalibration service is also provided, allowing the user to reset the IMU offsets at any point during testing.
+\subsection{Motion control}
 \subsubsection{Cartesian Body Controller}
 \subsubsection{Leveling Node}
 
