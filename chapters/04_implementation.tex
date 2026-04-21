@@ -211,6 +211,12 @@ foot parallel to the ground throughout all body poses:
     \theta_{ankle} = -(\theta_{hip} + |\theta_{knee}|)
 \end{equation}
 
+The hip roll angle is mirrored for the left leg to account 
+for its mirrored geometry. Body roll and pitch compensations 
+are applied by the body pose controller prior to calling 
+the IK solver, ensuring that foot positions correctly 
+satisfy the commanded body orientation across the full 
+range of expressive motion. %fix
 
 
 \section{Locomotion via Reinforcement Learning}
