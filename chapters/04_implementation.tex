@@ -150,8 +150,10 @@ The forward kinematics deployed in this project describe the translation from jo
 
 IN the context of this project, the forward kinematics were primarily used for simplistic state estimation. Given the current joint position of each actuator, the forward kinematics would compute the current foot position relative to the body. This information was used to update the robot state node, allowing the user to monitor the robots pose during operation and also to provide the base pose reference for the animation nodes used when calculating motion offsets.
 \subsection{Inverse Kinematics}
+The inverse kinematics solver is responsible for computing the joint angles required to place the feet at a desired position, given a commanded body pose. Rather than relying on a numerical iterative solver, an analytical closed-form solution was derived for the final robot. This approach was made possible due to the design choice of using a spherical hip joint, allowing the decoupling of the position and orientation of the leg. This approach was preferred as it could be solved in closed form without having to rely on more computationally expensive numerical methods, suiting the needs of the final system.
 
-
+\textbf{coordinate convention and Frame transformations}
+Body pose commands are expressed in the robots base frame and operate as a 6-DOF cartesian pose with position [x,y,z] expressed in millimeters and orientation [roll, pitch, yaw] in degrees. The body pose controller transforms these commands into per-leg foot position targets expressed relative to each hip joint center. This transformation has to account for several geometric 
 
 \section{Locomotion via Reinforcement Learning}
 \subsection{Simulation environment setup}
