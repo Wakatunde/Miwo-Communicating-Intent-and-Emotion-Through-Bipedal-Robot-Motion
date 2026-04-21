@@ -153,7 +153,65 @@ IN the context of this project, the forward kinematics were primarily used for s
 The inverse kinematics solver is responsible for computing the joint angles required to place the feet at a desired position, given a commanded body pose. Rather than relying on a numerical iterative solver, an analytical closed-form solution was derived for the final robot. This approach was made possible due to the design choice of using a spherical hip joint, allowing the decoupling of the position and orientation of the leg. This approach was preferred as it could be solved in closed form without having to rely on more computationally expensive numerical methods, suiting the needs of the final system.
 
 \textbf{coordinate convention and Frame transformations}
-Body pose commands are expressed in the robots base frame and operate as a 6-DOF cartesian pose with position [x,y,z] expressed in millimeters and orientation [roll, pitch, yaw] in degrees. The body pose controller transforms these commands into per-leg foot position targets expressed relative to each hip joint center. This transformation has to account for several geometric 
+Body pose commands are expressed in the robots base frame and operate as a 6-DOF cartesian pose with position [x,y,z] expressed in millimeters and orientation [roll, pitch, yaw] in degrees. The body pose controller transforms these commands into per-leg foot position targets expressed relative to the hip's center, accounting for the robot's lateral and vertical hip offsets, as well as the geometric effects of the body's roll and pitch on the required foot placement. The relative hip-relative foot positions are then passed to the analytical IK solver for each leg independently. 
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{
+        \centering
+        \vspace{3cm}
+        \textit{Figure placeholder — IK geometry diagram}
+        \vspace{3cm}
+    }}
+    \caption{Geometric illustration of the analytical IK 
+    solution for Miwo. Left: hip roll geometry in the 
+    frontal plane showing the shoulder offset and projection 
+    into the leg plane. Right: two-link planar IK in the 
+    sagittal plane showing the femur and tibia geometry 
+    used to solve the knee and hip pitch angles.}
+    \label{fig:ik_diagram}
+\end{figure}
+
+\textbf{Analytical IK Solution}
+The IK solver proceeds in two geometric stages. In the initial stage the roll angle and the effective vertical distance in the leg plane  $y_1$ are computed from the lateral and vertical components of the hip-relative foot position, removing the contribution of the foot offset $d_{shoulder} = 82.0$mm:
+
+\begin{equation}
+    y_1 = \sqrt{y_{IK}^2 + z_{IK}^2 - d_{shoulder}^2}
+\end{equation}
+
+\begin{equation}
+    \theta_{roll} = \arctan2(z_{IK} - d_{shoulder},\ y_{IK})
+\end{equation}
+
+In the second stage, the knee and hip pitch angles are solved using a two-link planar system. IK formulation in the sagittal plane. The distance from the hip joint center to the foot is:
+
+\begin{equation}
+    d = \sqrt{x_{IK}^2 + y_1^2}
+\end{equation}
+
+The knee angle can be obtained by using the cosine rule applied to the triangle formed by the femur, tibia, and the line from the hip to the foot.
+
+\begin{equation}
+    \theta_{knee} = \arccos\left(\frac{d^2 - l_1^2 - l_2^2}
+    {-2 l_1 l_2}\right) - 180\degree
+\end{equation}
+
+where $l_1 = 149.0$mm is the femur length and 
+$l_2 = 160.0$mm is the tibia length. The hip pitch angle 
+is then:
+
+\begin{equation}
+    \theta_{hip} = -\left(\arcsin\frac{l_2 \sin\theta_{knee}}
+    {d} - \arctan\frac{x_{IK}}{y_1}\right)
+\end{equation}
+
+Finally the ankle pitch angle is derived to maintain the 
+foot parallel to the ground throughout all body poses:
+
+\begin{equation}
+    \theta_{ankle} = -(\theta_{hip} + |\theta_{knee}|)
+\end{equation}
+
+
 
 \section{Locomotion via Reinforcement Learning}
 \subsection{Simulation environment setup}
