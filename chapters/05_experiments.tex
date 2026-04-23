@@ -1,24 +1,24 @@
 
 \chapter{User experiments}
-This chapter presents the experiments conducted to evaluate the 2 contributions of the Miwo platform. The main focus is the evaluation of the expressive motion framework, but it also presents the progress of the RL locomotion. 
+This chapter presents the experiments conducted to evaluate the 2 contributions of the Miwo platform. The main focus is the evaluation of the expressive motion framework, but it also presents progress in RL locomotion. 
 
-Evaluating the overall expressiveness of a robot is different from evaluating other robotic systems. The performance cannot be evaluated by objective metrics alone. If a motion is technically smooth and precise  but fails to communicate the intended emotion or intent, it must be considered unsuccessful. To accurately evaluate the expressive capabilities of Miwo, we rely on a Human perception study, where participants are asked to classify and evaluate different expressive motions either by interacting with the physical robot directly or by watching short video clips of the robot performing each motion. 
+Evaluating the overall expressiveness of a robot is different from evaluating other robotic systems. The performance cannot be evaluated by objective metrics alone. If a motion is technically smooth and precise but fails to communicate the intended emotion or intent, it must be considered unsuccessful. To accurately evaluate the expressive capabilities of Miwo, we rely on a Human perception study in which participants are asked to classify and evaluate different expressive motions either by interacting directly with the physical robot or by watching short video clips of the robot performing each motion. 
 
 In addition to the human perception trials, this chapter will also cover the experiments and results related to the RL locomotion. 
 
 
 \section{Experiment design and Participants}
-The experiment was designed with the goal of evaluating the overall expressive capabilities of the MiWo robot through a human-perception study. Participants were initially faced with the robot in an idle state before being presented with 6 different expressive motions. After each animation, the participants were asked to classify what emotion or intent they believed the robot was expressing. Participants were also asked to evaluate the overall impression of the robot after all 6 motions were completed. This study used a questionnaire based design to collect the responses, and quantitative statistical techniques were used to assess the clarity of the expressive motions.
+The experiment was designed to evaluate the MiWo robot's overall expressive capabilities through a human perception study. Participants initially encountered the robot in an idle state before being presented with 6 different expressive motions. After each animation, the participants were asked to classify what emotion or intent they believed the robot was expressing. Participants were also asked to evaluate the overall impression of the robot after all 6 motions were completed. This study employed a questionnaire-based design to collect responses, and quantitative methods were used to assess the clarity of expressive motions.
 
 \subsection{Experiment setup}               
-The participants of the study can be divided into two groups based on how they experienced the robots expressive motions: 
+The participants of the study can be divided into two groups based on how they experienced the robot's expressive motions: 
 The first group attended live demonstrations, where they observed the physical robot performing directly in front of them, allowing them to get a better impression of its size, mechanics, and weight. 
 The second group completed the experiments remotely by watching short video clips of the same motions performed in the live demonstrations. 
 By offering both in-person and remote participant options, the study was accessible to a broader range of participants. The responses of the 2 groups were also analyzed separately to identify any differences in the perception between live and video-based observations.
                 
 \subsection{Participants}
-Participants were recruited using a wide variety of methods. The participants for the live demonstrations were mostly recruited by asking fellow students and researchers available on campus. The recruitment of those who participated in the video-based study involved creating multiple posts across social media, putting up posters around campus, and sending direct invitations to the study to various friends and family, providing a wide variety of participants with different backgrounds.
-A total of 36 participants completed the study, of whom 12 attended the live demonstration and 22 completed the remote video-based study. The participants were not required to have any prior knowledge of robotics or engineering, and no restrictions were placed on the demographics other than a minimum age limit. Prior to participating in the study, all participants were informed of the study purpose and provided their consent to participate.
+Participants were recruited using a wide variety of methods. The participants for the live demonstrations were mostly recruited by asking fellow students and researchers available on campus. Recruitment for the video-based study involved creating multiple social media posts, posting posters around campus, and sending direct invitations to the study to various friends and family, resulting in a wide range of participants with diverse backgrounds.
+A total of 38 participants completed the study: 16 attended the live demonstration, and 22 completed the remote video-based study. The participants were not required to have any prior knowledge of robotics or engineering, and no demographic restrictions were imposed other than a minimum age requirement. Before participating in the study, all participants were informed of its purpose and provided consent. All responses were collected anonymously using a participant ID system that could not be linked back to individual participants, and no personal data was collected. Data was stored securely and used solely for academic research purposes in accordance with the institution's data management policy.
 
 \begin{figure}[H]
 \centering
@@ -57,26 +57,49 @@ A total of 36 participants completed the study, of whom 12 attended the live dem
 {\small \textbf{Robot familiarity}}
 \end{subfigure}
 
-\caption[Demographic breakdown of participants]{Demographic breakdown of participants. Top row shows
-field of study distribution, bottom row shows robot familiarity
+\caption[Demographic breakdown of participants]{Demographic breakdown of participants. The top row shows
+Field of study distribution, the bottom row shows robot familiarity
 grouped into high (moderately familiar, very familiar, or expert)
 and low (not familiar or slightly familiar).}
 \label{fig:demographics_pie}
 \end{figure}
 
-% bar/pie chart for participants and demographic
+% bar/pie chart for participants and demographics
+
 
 \subsection{Procedure and questionnaire} 
-In the first part, where participants experienced the robot live, they entered the room to find the robot already turned on and in an idle state, performing breathing-like and subtle idle movements. To provide a similar experience to the group in the video-based study, participants were first asked to watch a one-minute video of the robot standing and moving in its idle state, allowing them to become familiar with how it behaves without explicit commands. Each participant was then presented with 6 video clips or live demonstrations of the robot performing distinct expressive motions. The motions presented were designed to correspond to the following emotions or intents: Curiosity, Happiness, Sadness, Disappointment, Anger, and Fear. For each motion, participants were asked to answer a set of 4 questions. The first question asked participants to name the emotion or intent the robot was expressing in their own words, with no predefined options, providing a more open-ended response. This was followed by 3 questions asking the participants to rate their confidence in their answers, how well they felt the robot expressed the named emotion, and how natural the motion felt on a scale of 1 to 5.
+In the first part, where participants experienced the robot live, they entered the room to find it already turned on and in an idle state, performing breathing-like, subtle movements. To provide a similar experience to the group in the video-based study, participants were first asked to watch a one-minute video of the robot standing and moving in its idle state, allowing them to become familiar with its behavior without explicit commands. Each participant was then presented with 6 video clips or live demonstrations of the robot performing distinct expressive motions. The motions presented were designed to correspond to the following emotions or intents: Curiosity, Happiness, Sadness, Disappointment, Anger, and Fear. For each motion, participants were asked to answer 4 questions. The first question asked participants to name the emotion or intent the robot was expressing in their own words, with no predefined options, allowing for more open-ended responses. This was followed by 3 questions asking the participants to rate their confidence in their answers, how well they felt the robot expressed the named emotion, and how natural the motion felt on a scale of 1 to 5.
 
-The open-ended format for the question regarding the emotion/intent recognition was done deliberately to avoid influencing the participants to a predefined set of options. By doing so, we allow for a more genuine assessment of whether the intended emotion/intent was communicated clearly without guiding the participant to a specific answer.
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Question} & \textbf{Type} & \textbf{Scale} \\
+    \hline
+    Q1. What emotion or intent does the robot & Open-ended & Free text \\
+    appear to be expressing? & & \\
+    \hline
+    Q2. How confident are you in your answer? & Likert scale & 1 -- 5 \\
+    \hline
+    Q3. How well do you think the robot & Likert scale & 1 -- 5 \\
+    expressed this emotion? & & \\
+    \hline
+    Q4. How natural did the robot's & Likert scale & 1 -- 5 \\
+    movement feel? & & \\
+    \hline
+\end{tabular}
+\caption{Questions the participants were faced with during the emotion/intent recognition part of the study.}
+\label{tab:questionnaire}
+\end{table}
 
-Following the evaluation of the individual, participants would provide an overall evaluation of the robot using the Godspeed scale. The Godspeed scale was presented in \cite{bartneck_measurement_2008} as a standardized measurement tool for human robot interactions and is widely used and recognized. The Godspeed scale evaluates the perception of the robot across 5 different key concepts in HRI: anthropomorphism, animacy, likability, perceived intelligence, and perceived safety. Each of the concepts is assessed using 5 consistent questionnaires that employ semantic differential scales. Using a standardized and validated metric for the overall evaluation allows the results of the study to be compared with other works in the field of expressive robotics and human robot interactions.
+The open-ended format for the question regarding emotion/intent recognition was deliberately chosen to avoid influencing participants into a predefined set of options. By doing so, we allow for a more genuine assessment of whether the intended emotion/intent was communicated clearly without guiding the participant to a specific answer.
 
-The order of the motions was the same for each participant, and the questionnaire was administered digitally using google forms for both the live and video-based studies, taking approximately 10-15 minutes to complete.
+Following the individual evaluation, participants would provide an overall evaluation of the robot using the Godspeed scale. The Godspeed scale was introduced in \cite{bartneck_measurement_2008} as a standardized instrument for measuring human-robot interactions and is widely used and recognized. The Godspeed scale evaluates perceptions of the robot across 5 key concepts in HRI: anthropomorphism, animacy, likability, perceived intelligence, and perceived safety. Each concept is assessed using 5 consistent questionnaires that employ semantic differential scales. Using a standardized and validated metric for the overall evaluation allows the results of the study to be compared with other work in the fields of expressive robotics and human-robot interaction.
+
+The order of the motions was the same for each participant, and the questionnaire was administered digitally using Google Forms for both the live and video-based studies, taking approximately 10-15 minutes to complete.
 
 \subsection{Metrics and evaluation}
-It is worth noting that the study collects two categories of data. The emotion/intent recognition data consists of open-ended labels, which were analyzed by grouping the responses into emotion/intent categories and then calculating the recognition rates for each animation. The scaled responses for analyzing confidence, expressiveness, and naturalness were analyzed quantitatively, while the godspeed scale data were scored and analyzed per dimension.
+It is worth noting that the study collects two categories of data. The emotion/intent recognition data consists of open-ended labels, which were analyzed by grouping responses into emotion/intent categories and calculating recognition rates for each animation. The scaled responses for analyzing confidence, expressiveness, and naturalness were analyzed quantitatively, while the godspeed scale data were scored and analyzed per dimension.
 
 
 

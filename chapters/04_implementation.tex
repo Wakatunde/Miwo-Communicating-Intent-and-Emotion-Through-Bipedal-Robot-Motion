@@ -82,15 +82,34 @@ All structural components and links of the robot platform were fabricated using 
 
 \section{Robot Model}
 \subsection{URDF Description}
-The physical robot was designed using Autodesk Fusion and was translated into a URDF model for use within the ROS2 system
+The physical robot was designed in Autodesk Fusion and exported as a URDF (Unified Robot Description Format) model for use within the ROS2 system. The URDF format is an XML-based file format used in ROS to define the physical structure of the robot, including its links, joints, inertial properties, visual and collision geometry, and its kinematics and dynamics. The translation from Fusion to URDF was done by using the URDF2Fusion GitHub repository \cite{toshinori2020fusion2urdf}. This repository provides a fusion script that allows the user to export the project directly as a URDF. The script exports the robot description by traversing the assembly's component hierarchy, generating the corresponding URDF links and joints, along with STL mesh files for the visual and collision geometry of each link. In addition to generating the URDF file, the script will create a small ROS description package, including launch and YAML files, to simulate the robot in both Gazebo and RViz. This provided a ready-to-use starting point for building the simulation environments.
+
+Before running the script, the fusion had to be prepared to meet a set of requirements, a process that required multiple attempts to achieve stable results. All distinct robot links were defined as separate components in the assembly, and the base component was renamed \texttt{base\_link} as required by the script. All controllable joints were defined as revolute joints, and time was taken to correctly assign parent and child components, as incorrect assignment would cause the exporter to fail.
+
+The final exported URDF file served as a solid foundation for the robot description, but some manual changes were required before it could be used in the simulation. The inertial properties of each link, including mass and inertia tensors, were estimated from the fusion model, using the physical material properties automatically provided by the fusion script. The script had difficulty estimating the inertia of smaller, irregularly shaped links, resulting in inaccurate or non-positive-definite exported values and instability in the Gazebo simulation. This was solved by manually calculating estimates for the problematic links and replacing the exported values with the new estimates in the URDF file.
+
 \subsection{Simulation Environments}
     \subsubsection*{RViz2}
+    Rviz2 served as the primary visualization and development tool throughout the project. The final URDF model would be loaded in rviz and subscribing to the joint state topics relayed by the physical or simulated hardware. Rviz provided the user with a real-time 3D visualization of the robot's configuration and coordinate frames. without relying on any physics simulation. The Rviz visualization proved very useful in the early stages of development for verifying the URDF model, testing the inverse kinematics, and debugging expressive motion animations before deploying on the actual hardware. The mock hardware interface allows the full ROS2 control stack to run in simulation mode. This allows all control nodes, bridge nodes, and animation nodes to be tested against the visual model without risking damage to the actual hardware.
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/rviz.png}
+    \caption{The Robots URDF file displayed in Rviz}
+    \label{fig:robot_rviz}
+    \end{figure}
+
     \subsubsection*{Gazebo Fortress}
+    The Gazebo fortress served as the primary physics simulation environment for testing the robot's balance, contact behavior, animations, and inverse kinematics under more realistic conditions. Unlike Rviz, Gazebo simulates all the rigid-body dynamics of the robots, such as gravity, contact forces, friction, and inertia. This setup allows for more complex control algorithms to be validated in physically plausible environments, providing an additional layer of testing before moving to actual hardware. Gazebo was also used to initially test all animations and confirm their stability before deployment on the physical robot.
 
-
-
-
-\section{Software architecture}
+    Achieving stable simulation in Gazebo proved challenging across multiple simulations, as initial simulations using Gazebo Classic caused contact explosion issues, where the robot became increasingly unstable upon contact with the ground. The issue of unstable simulations was resolved by upgrading to Gazebo Fortress and performing some additional tuning of the robot's foot parameters in the URDF file. Adjustments of the foot's friction coefficients, contact stiffness, and contact dampening to achieve the final stable simulation.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/gazebo.png}
+    \caption{The Robots URDF file displayed in Rviz}
+    \label{fig:robot_gazebo}
+    \end{figure}
+    
 
 \subsection{ROS2 System Overview}
 The software system for the Miwo platform was developed using the ROS2 Humble framework and runs on a device with Ubuntu 22.04. ROS 2 was used because it provides a modular architecture with individual nodes that communicate by subscribing to and publishing data on named channels (topics) or by calling services and actions. This architecture allows the final system to be broken down into smaller, independently runnable components, facilitating a more modular development and testing process.
@@ -129,7 +148,7 @@ The logic of the Dynamixel bridge differs from that of the Unitree bridge at sta
 The antenna bridge controls the two 9g servos that drive the robot's antenna movement. Unlike the other two bridges that communicate directly with the onboard computer over a serial connection, the antenna servos are driven by an Adafruit PCA9685 16-channel PWM servo driver board. The PCA9685 is a dedicated PWM controller that generates the PWM signals required to position the servo motors. The PCA9685 communicates with an Arduino Nano over the I2C bus; the Arduino receives the position commands from the onboard Jetson over a USB serial connection. This chain of communication (Jetson - Arduino - PCA9685 - Servo) was chosen because the Jetson does not natively generate hardware PWM signals suitable for the servos, and the Arduino provides a simple, widely available solution to bridge the communication gap. The bridge node subscribes to joint trajectory messages published to the antenna controller topic and translates the commands into PWM signals forwarded to the Arduino Nano. The Arduino runs a dedicated script that forwards the PWM signals received to the PCA9685, updating the servo positions. The antennas are not involved in the robot's balance or inverse kinematics and act independently, allowing movement to be layered on top of other motions. In the context of expressive motion, the antenna's motion will serve as a secondary action, as previously mentioned in the animation principles.
 
 \subsubsection*{Eye Control Node}
-The onboard computer controls the robot's eyes via an independent node. The node communicates with the two LCDs over Wi-Fi, sending expression commands corresponding to a predefined set of expressions, such as [happy, sad, squint, angry, idle]. The node also supplies the robot with realistic blinking by periodically publishing a blink command at random intervals with a randomized set of different blink animations, including [fast blink, single eye blink, slow blink, asymmetrical blink], which have different weights, to give a more lifelike blinking experience. In addition to sending blink signals, the node subscribes to an eye command topic, allowing the animation nodes discussed later to publish eye commands at specific points in longer expressive motions.
+The onboard computer controls the robot's eyes via an independent node. The node communicates with the two LCDs over Wi-Fi, sending expression commands corresponding to a predefined set of expressions, such as [happy, sad, squint, angry, idle]. The node also supplies the robot with realistic blinking by periodically publishing a blink command at random intervals with a randomized set of different blink animations, including [fast blink, single eye blink, slow blink, asymmetrical blink], which have different weights to give a more lifelike blinking experience. In addition to sending blink signals, the node subscribes to an eye command topic, allowing the animation nodes discussed later to publish eye commands at specific points in longer expressive motions.
 
 \subsection{State Estimation}
 \subsubsection*{IMU pipeline}
