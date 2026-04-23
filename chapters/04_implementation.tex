@@ -106,12 +106,12 @@ The final exported URDF file served as a solid foundation for the robot descript
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/gazebo.png}
-    \caption{The Robots URDF file displayed in Rviz}
+    \caption{The Robots URDF file displayed in Gazebo}
     \label{fig:robot_gazebo}
     \end{figure}
     
 
-\subsection{ROS2 System Overview}
+\section{ROS2 System Overview}
 The software system for the Miwo platform was developed using the ROS2 Humble framework and runs on a device with Ubuntu 22.04. ROS 2 was used because it provides a modular architecture with individual nodes that communicate by subscribing to and publishing data on named channels (topics) or by calling services and actions. This architecture allows the final system to be broken down into smaller, independently runnable components, facilitating a more modular development and testing process.
 
 The software system can be divided into 3 different hierarchical levels, as illustrated in Figure ~\ref{fig:software_architecture}. The lowest level, responsible for low-level system control, is called the hardware interface layer. The hardware interface layer consists of a set of bridge nodes. The bridge nodes are responsible for translating the ROS2 commands into low-level motor commands and reading back the hardware state, allowing us to control the hardware directly. One level above sits the state estimator layer, which processes raw IMU sensor data to compute the robot's current orientation and body pose. The uppermost layer is the motion control layer, which generates body pose commands based on the provided input. The input may come from joystick commands, expressive motion sequencer nodes, or a reinforcement learning policy. The layer is then responsible for translating these commands into joint trajectories for each motor using an inverse-kinematics solver.
