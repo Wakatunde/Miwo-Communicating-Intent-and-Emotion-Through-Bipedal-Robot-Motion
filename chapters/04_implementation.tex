@@ -87,7 +87,10 @@ All structural components and links of the robot platform were fabricated using 
 \end{figure}
 
 The electronics in the final platform are organized around 3 different voltage levels: a high voltage supply of 22.2V for supplying the neck and leg actuators directly from the power supply, a lower voltage supply supplying the on-board electronics with 12V, and a low voltage supply from an additional voltage converter supplying power to the smaller internal components.
-\subsection{Power}
+\subsection{Power Distribution}
+The robot's power source is a single 6-cell, 22.2V LiPo battery mounted to the base link of the assembly. The battery's output is distributed initially across 3 parallel branches. The first two are responsible for supplying power to the daisy-chained GO-M8010 actuators directly at the full battery voltage of 22.2V. The first branch supplies power to the left leg chain, and the second supplies power to the right leg chain and the neck pitch motor, forming two independent communication chains described in the software architecture. Direct power supply to the actuators was necessary to ensure the correct operating voltage of 12-36V (24V recommended).
+
+The third branch from the battery is fed into a DC/DC converter mounted in the torso, stepping down the voltage to a regulated 12V supply. This 12V supply is routed up from the torso along the neck and into the head assembly, where it is distributed across different parallel branches. The Jetson onboard computer is powered directly from the supplied 12V power supply, along with the U2D2 communication board, which provides communication and power to the 3 daisy-chained Dynamixel XM430 servos. A second DC/DC converter in the head steps down the 12V supply to 5V to power the 2 LCD eye displays and the Adafruit PCA9685, which powers the two 9g antenna servos. The remaining components, including the Phidgets IMU and the Arduino Nano, are powered via a USB connection to the Nvidia Jetson.
 
 \section{Robot Model}
 \subsection{URDF Description}
