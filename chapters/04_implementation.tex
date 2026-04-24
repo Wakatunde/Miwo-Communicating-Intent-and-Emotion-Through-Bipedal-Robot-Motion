@@ -1,4 +1,4 @@
-\setlength{\fboxrule}{1pt}
+\setlength{\fboxrule}{0pt}
 
 \chapter{Implementation}
 This chapter provides an overview of the work done to develop the MiWo platform, covering the robot's physical design and construction, expressive motion design, and locomotion via reinforcement learning.
@@ -79,6 +79,15 @@ All structural components and links of the robot platform were fabricated using 
 
 \section{Electrical Architecture}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/Chapter_4/electrical (1).pdf}
+    \caption{The electrical architecture of the robot platform.}
+    \label{fig:electrical}
+\end{figure}
+
+The electronics in the final platform are organized around 3 different voltage levels: a high voltage supply of 22.2V for supplying the neck and leg actuators directly from the power supply, a lower voltage supply supplying the on-board electronics with 12V, and a low voltage supply from an additional voltage converter supplying power to the smaller internal components.
+\subsection{Power}
 
 \section{Robot Model}
 \subsection{URDF Description}
@@ -122,7 +131,7 @@ The software system can be divided into 3 different hierarchical levels, as illu
         \centering
         \includegraphics[width=0.6\textwidth]{figures/Chapter_4/Untitled Diagram.drawio.png}
     }}
-    \caption{Overview of the Miwo software architecture showing 
+    \caption{[Overview of the Miwo software architecture]Overview of the Miwo software architecture showing 
     the three main layers: hardware interface, state estimation, 
     and motion control.}
     \label{fig:software_architecture}
@@ -169,9 +178,7 @@ The primary interface for operating and controlling the robot was a PS5 DualSens
 The joystick control node divides robot control into two modes: body control and head control. In body control mode, the operator can control the position and orientation in Cartesian coordinates using the inverse kinematics solver. Head control mode offers a similar setup, allowing the user to control the neck, pitch, and roll of the head. These controls work in real time due to the analytical approach to solving the inverse kinematics and offer simple yet effective puppeteering capabilities. The controller node also offers a wide variety of other commands to provide a more user-friendly experience, including: switching control modes, returning smoothly to a predefined idle pose, activating/deactivating automatic IMU leveling, saving a current pose as a new idle pose, cycling through optional animations, and triggering a chosen animation.  
 
 All the joystick inputs are processed through a deadzone filter with a threshold of 0.2 to account for joystick drift and to filter out small, unintended movements. The body control inputs are published at 100 Hz and accumulated by the Cartesian controller to produce smooth, continuous motion. Additional limits are deployed to the robot's orientation in software, with roll clamped to $\pm60\degree$, pitch to $\pm15\degree$, and 
-yaw to $\pm15\degree$ to prevent the robot from pose configurations that would cause it to tip over. A full summary 
-The control mapping is provided in 
-Table~\ref{tab:joystick}.
+yaw to $\pm15\degree$ to prevent the robot from pose configurations that would cause it to tip over. A full summary of the control mapping is provided in Table~\ref{tab:joystick}.
 
 \input{figures/Chapter_4/controls}
 
