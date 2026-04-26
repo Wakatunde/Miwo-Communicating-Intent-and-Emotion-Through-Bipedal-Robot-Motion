@@ -2,7 +2,9 @@
 This chapter presents the results from the human perception study. The results are organized into 3 sections, each covering emotion/intent recognition, Likert-scale ratings, and Godspeed questionnaire results. Where relevant, the results of the live study (N=16) and video-based study (N=22) are presented separately and compared to identify any differences in perception between the two approaches.
 
 \section{Emotion Recognition Results}
-This section presents the results of the open-ended emotion recognition task, in which participants were asked to describe the emotion or intent the robot was conveying in each of the 6 expressive animations. As previously mentioned, the responses were divided into 3 groups: \textit{intended}, \textit{adjacent}, or \textit{other}. Figure~\ref{fig:recognition_rate} summarizes the recognition rate, i.e., the rate at which the responses were categorized as the intended emotion. IT shows the recognition rates across all six animations for both the live and video-based groups, followed by a detailed breakdown of the response distribution in figures~\ref{fig:emotion_recognition_live} and ~\ref{fig:emotion_recognition_video}.
+This section presents the results of the open-ended emotion recognition task, in which participants were asked to describe the emotion or intent the robot was conveying in each of the 6 expressive animations. As previously mentioned, the responses were divided into 3 groups: \textit{intended}, \textit{adjacent}, or \textit{other}. Figure~\ref{fig:recognition_rate} summarizes the recognition rate, i.e., the rate at which the responses were categorized as the intended emotion. It shows the recognition rates across all six animations for both the live and video-based groups, followed by a detailed breakdown of the response distribution in figure ~\ref{fig:emotion_recognition_video}.
+and
+~\ref{fig:emotion_recognition_live}
 
 %\newpage
 \begin{figure}[H]
@@ -10,14 +12,15 @@ This section presents the results of the open-ended emotion recognition task, in
 \input{figures/charts/recognition_rate}
 \caption[Emotion recognition rates per animation for the live
 study]{Emotion recognition rates per animation for the live
-study (N=11) and video-based study (N=22). Values represent
+study (N=16) and video-based study (N=22). Values represent
 The percentage of participants who correctly identified the
 intended emotion.}
 \label{fig:recognition_rate}
 \end{figure}
 
-By examining these results, a clear distinction between the animations can be seen. Some animations were more consistently recognized, while others proved more ambiguous in interpretation. \textit{Happiness} and \textit{Anger} achieve near-perfect scores in both live and video-based studies, with live rates of 100\% and video rates of 95\%. Sadness also offers a high recognition rate, with 88\% in the live study and 95\% in the video-based study. The \textit{Curiosity} animation was the weakest performer overall, achieving recognition rates of 25\% in the live study and only 5\% in the video-based study. Results also show that the live study consistently outperformed the video-based study across all animations, except for the \textit{sadness} animation. A notable performance gap was also observed for \textit{Disappointment} (75\% live vs.\ 32\% video) and \textit{Fear} 
+By examining these results, a clear distinction between the animations can be seen. Some animations were more consistently recognized, while others proved more ambiguous in interpretation. \textit{Happiness} and \textit{Anger} achieve near-perfect scores in both live and video-based studies, with live rates of 100\% and video rates of 95\%. Sadness also offers a high recognition rate, with 88\% in the live study and 95\% in the video-based study. The \textit{Curiosity} animation was the weakest performer overall, achieving recognition rates of 25\% in the live study and only 5\% in the video-based study. Results also show that the live study consistently outperformed the video-based study across all animations, except for the \textit{sadness} animation. A notable performance gap was also observed for \textit{Frustrated} (75\% live vs.\ 32\% video) and \textit{Fear} 
 (81\% live vs.\ 36\% video), which are examined in detail below.
+\newline
 
 Figure ~\ref{fig:emotion_recognition_video} shows how the different responses were classified for each of the 6 emotions. \textit{Anger}, \textit{Happiness}, and \textit{Frustrated} show a low level of variation consistent with their high recognition rates. The remaining 3 animations display a wider variety of answers, indicating that participants interpreted them differently.
 
@@ -33,16 +36,37 @@ Figure ~\ref{fig:emotion_recognition_video} shows how the different responses we
 
 \textbf{Fear} also displayed a wide spread of responses across all three categories. In the live study, 81\% of participants correctly identified the intended emotion, whereas the video-based study achieved only 36\%, representing the largest gap between the two groups, particularly for \textit{Frustrated}. Recurring adjacent responses included shyness, sadness, and surprise.
 
+\textbf{Happiness, Sadness, and anger} all show very low levels of variation, supporting the high classification rates observed.
+
 
 
 
 
 \newpage
 \section{Likert Scale Results}
-% Confidence, expressiveness, naturalness per animation
+Following the emotion/intent recognition question, participants rated each animation across three metrics on a five-point Likert scale. These metrics provide emotion recognition data with complementary insight into the quality of expressive motions beyond recognition rates.
+
+The mean scores and standard deviations for both study groups are presented in ~\ref{tab:likert_scores} and the distributions are shown in \ref{fig:likert_live} and ~\ref{fig:likert_video}.
+
+The Likert scores collected during the trials show a strong correlation with the results gathered in the previous section. Animations that were reliably recognized, such as Happiness, Sadness, and Anger, consistently achieved the highest scores across all metrics in both groups. Animations with lower recognition rates, such as Curiosity, Frustration, and Fear, tend to score lower on confidence in particular. This trend also suggests that participants were aware of their own uncertainty when the intended emotion was not clearly communicated. Scores for naturalness were generally more consistent across the different animations than those for expressiveness and confidence. This could indicate that the platform's motion quality was perceived as reliable across the different animations. 
 
 \input{figures/charts/likert_video}
 \input{figures/charts/likert_live}
+
+Consistent with the emotion recognition results, fear is among the weakest-performing emotions. The fear animation in the live study had the lowest mean confidence (3.00) and the highest standard deviation (1.32). Some participants reported a high level of confidence, while others reported none. This could suggest that the intended emotion was not communicated clearly. 
+Sadness had the lowest standard deviation in expressiveness in the live study, at 0.48. This suggests that this is one of the most consistent animations, as all participants responded with similar values.
+
+
+
+Animations with lower recognition rates tend to show higher naturalness scores than confidence scores. The robot's motion was perceived as natural, even when the displayed motion was unclear, suggesting that motion quality is not the issue; rather, the emotional design is.
+
+The Frustrated motion during the video trial consistently shows high SDs (1.09-1.22) across all metrics, indicating that the response was very divided among participants. Some found the motion very expressive, while others did not.
+
+The biggest difference between the 2 studies is how the groups scored the Frustrated animation. The Live group scored the animation much higher overall, with a confidence of 3.88 vs 3.18 and expressiveness at 4.06 vs 3.32. This is the biggest gap between the groups and is consistent with the gap in recognition rate as well.
+
+
+\input{figures/Chapter_6/likert_table}
+
 
 
 
