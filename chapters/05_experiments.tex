@@ -25,7 +25,7 @@ A total of 38 participants completed the study: 16 attended the live demonstrati
 
 \begin{subfigure}[t]{0.48\textwidth}
 \centering
-{\small\textbf{Live study (N=11)}}
+{\small\textbf{Live study (N=16)}}
 \vspace{1.0cm}
 
 \input{figures/charts/pie_live_field}
@@ -36,7 +36,7 @@ A total of 38 participants completed the study: 16 attended the live demonstrati
 
 \input{figures/charts/pie_live_familiarity}
 
-\vspace{0.1cm}
+\vspace{0.5cm}
 {\small \textbf{Robot familiarity}}
 \end{subfigure}
 \hfill
@@ -65,10 +65,11 @@ and low (not familiar or slightly familiar).}
 \end{figure}
 
 % bar/pie chart for participants and demographics
+As shown in \autoref{fig:demographics_pie}, the two groups differ noticeably in their respective backgrounds. The live study group, consisting of participants found on campus, is almost exclusively from engineering and technology fields, making up 88\% of participants. This displays potential weakness in the campus-based recruitment process. The video-based study shows a more diverse distribution, with only 50\% of participants doing engineering. Other differences include the live-study group reporting a higher level of overall robot familiarity, with 50\% rating themselves as having a higher level of familiarity compared to the 41\% in the video-based studies. These demographic differences are acknowledged as potential factors in interpreting the performance differences between the two studies and are addressed further in the results chapter.
 
 
 \subsection{Procedure and questionnaire} 
-In the first part, where participants experienced the robot live, they entered the room to find it already turned on and in an idle state, performing breathing-like, subtle movements. To provide a similar experience to the group in the video-based study, participants were first asked to watch a one-minute video of the robot standing and moving in its idle state, allowing them to become familiar with its behavior without explicit commands. Each participant was then presented with 6 video clips or live demonstrations of the robot performing distinct expressive motions. The motions presented were designed to correspond to the following emotions or intents: Curiosity, Happiness, Sadness, Disappointment, Anger, and Fear. For each motion, participants were asked to answer 4 questions. The first question asked participants to name the emotion or intent the robot was expressing in their own words, with no predefined options, allowing for more open-ended responses. This was followed by 3 questions asking the participants to rate their confidence in their answers, how well they felt the robot expressed the named emotion, and how natural the motion felt on a scale of 1 to 5.
+In the first part, where participants experienced the robot live, they entered the room to find it already turned on and in an idle state, performing breathing-like, subtle movements. To provide a similar experience to the group in the video-based study, participants were first asked to watch a one-minute video of the robot standing and moving in its idle state, allowing them to familiarize themselves with the robot's idle behavior and appearance, ensuring that the following animations were evaluated relative to the robot's idle state rather than isolated movements without context. Each participant was then presented with 6 video clips or live demonstrations of the robot performing distinct expressive motions. The motions presented were designed to correspond to the following emotions or intents: Curiosity, Happiness, Sadness, Disappointment, Anger, and Fear. For each motion, participants were asked to answer 4 questions. The first question asked participants to name the emotion or intent the robot was expressing in their own words, with no predefined options, allowing for more open-ended responses. This was followed by 3 questions asking the participants to rate their confidence in their answers, how well they felt the robot expressed the named emotion, and how natural the motion felt on a scale of 1 to 5.
 
 \begin{table}[H]
 \centering
@@ -99,7 +100,10 @@ Following the individual evaluation, participants would provide an overall evalu
 The order of the motions was the same for each participant, and the questionnaire was administered digitally using Google Forms for both the live and video-based studies, taking approximately 10-15 minutes to complete.
 
 \subsection{Metrics and evaluation}
-It is worth noting that the study collects two categories of data. The emotion/intent recognition data consists of open-ended labels, which were analyzed by grouping responses into emotion/intent categories and calculating recognition rates for each animation. The scaled responses for analyzing confidence, expressiveness, and naturalness were analyzed quantitatively, while the godspeed scale data were scored and analyzed per dimension.
+It is worth noting that the study collects two categories of data. The emotion/intent recognition data consist of open-ended labels, which were analyzed by grouping responses into emotion/intent categories and calculating recognition rates for each animation. The scaled responses for analyzing confidence, expressiveness, and naturalness were analyzed quantitatively, while the godspeed scale data were scored and analyzed per dimension.
+
+Due to the open-ended nature of the emotion/intent recognition question, responses were grouped into three categories for better visualization and quantitative analysis. The response groups include: intended emotion (response matching the intended emotion), adjacent emotion (response describing a related or overlapping emotional state), and other (responses unrelated to the intended emotion). Grouping participants' responses was necessary to enable quantitative comparisons across animations while preserving the insights of the open-ended response format. 
+An example of the grouping logic can be seen in the curiosity animation. One participant classified the animation as \textbf{'cautious-}, this was classified as adjacent since caution shares the attentive qualities of the curiosity animation, even if it does not directly match the name of the intended emotion. 
 
 
 

@@ -18,7 +18,7 @@
         {Sadness},
         {Frustrated},
         {Anger},
-        {Fear}
+        {Fear/Shy}
     },
     x tick label style={
         font=\small,
@@ -44,19 +44,19 @@
 % Confidence — dark purple
 \addplot+[ybar, fill=intended, draw=white, line width=0.5pt]
     coordinates {
-        (A1,3.55)(A2,4.18)(A3,4.64)(A4,4.09)(A5,4.73)(A6,2.82)
+        (A1,3.56)(A2,4.25)(A3,4.75)(A4,3.88)(A5,4.75)(A6,3.00)
     };
 
 % Expressiveness — lavender
 \addplot+[ybar, fill=adjacent, draw=white, line width=0.5pt]
     coordinates {
-        (A1,3.82)(A2,4.27)(A3,4.55)(A4,4.09)(A5,4.36)(A6,3.36)
+        (A1,3.94)(A2,4.31)(A3,4.69)(A4,4.06)(A5,4.50)(A6,3.56)
     };
 
 % Naturalness — orange
 \addplot+[ybar, fill=other, draw=white, line width=0.5pt]
     coordinates {
-        (A1,3.73)(A2,4.09)(A3,4.18)(A4,4.18)(A5,4.45)(A6,3.45)
+        (A1,3.94)(A2,4.06)(A3,4.44)(A4,3.88)(A5,4.44)(A6,3.62)
     };
 
 \legend{
@@ -69,7 +69,7 @@
 \end{tikzpicture}
 \caption[Mean Likert scale scores per animation for the live 
 study]{Mean Likert scale scores per animation for the live 
-study (N=11). Each animation shows three bars representing mean 
+study (N=16). Each animation shows three bars representing mean 
 confidence, expressiveness, and naturalness ratings on a scale of 
 1 to 5.}
 \label{fig:likert_live}

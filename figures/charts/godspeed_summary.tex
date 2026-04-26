@@ -1,7 +1,6 @@
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[scale=3.0]
-
 \foreach \lev in {1,...,5}{
     \draw[gray!25, line width=0.4pt]
         \foreach \i in {1,...,5}{
@@ -18,28 +17,28 @@
         ({(\lev/5)*cos(90)}, {(\lev/5)*sin(90)+0.06}) {\lev};
 }
 
-% Live — navy solid
+% Live — navy solid (N=16)
 \fill[navyblue, opacity=0.15]
-    ({(3.00/5)*cos(90)},   {(3.00/5)*sin(90)})   --
-    ({(3.38/5)*cos(18)},   {(3.38/5)*sin(18)})   --
-    ({(4.58/5)*cos(-54)},  {(4.58/5)*sin(-54)})  --
+    ({(3.14/5)*cos(90)},   {(3.14/5)*sin(90)})   --
+    ({(3.40/5)*cos(18)},   {(3.40/5)*sin(18)})   --
+    ({(4.50/5)*cos(-54)},  {(4.50/5)*sin(-54)})  --
     ({(3.20/5)*cos(-126)}, {(3.20/5)*sin(-126)}) --
-    ({(4.24/5)*cos(-198)}, {(4.24/5)*sin(-198)}) --
+    ({(4.26/5)*cos(-198)}, {(4.26/5)*sin(-198)}) --
     cycle;
 \draw[navyblue, line width=1.8pt]
-    ({(3.00/5)*cos(90)},   {(3.00/5)*sin(90)})   --
-    ({(3.38/5)*cos(18)},   {(3.38/5)*sin(18)})   --
-    ({(4.58/5)*cos(-54)},  {(4.58/5)*sin(-54)})  --
+    ({(3.14/5)*cos(90)},   {(3.14/5)*sin(90)})   --
+    ({(3.40/5)*cos(18)},   {(3.40/5)*sin(18)})   --
+    ({(4.50/5)*cos(-54)},  {(4.50/5)*sin(-54)})  --
     ({(3.20/5)*cos(-126)}, {(3.20/5)*sin(-126)}) --
-    ({(4.24/5)*cos(-198)}, {(4.24/5)*sin(-198)}) --
+    ({(4.26/5)*cos(-198)}, {(4.26/5)*sin(-198)}) --
     cycle;
 \foreach \val/\angle in {
-    3.00/90, 3.38/18, 4.58/-54, 3.20/-126, 4.24/-198}{
+    3.14/90, 3.40/18, 4.50/-54, 3.20/-126, 4.26/-198}{
     \filldraw[navyblue]
         ({(\val/5)*cos(\angle)}, {(\val/5)*sin(\angle)}) circle (1.0pt);
 }
 
-% Video — orange dashed
+% Video — orange dashed (N=22, unchanged)
 \fill[emotion, opacity=0.15]
     ({(3.15/5)*cos(90)},   {(3.15/5)*sin(90)})   --
     ({(3.49/5)*cos(18)},   {(3.49/5)*sin(18)})   --
@@ -61,25 +60,29 @@
 }
 
 % Axis labels
-\node[font=\small, above, align=center] at ({1.28*cos(90)},{1.28*sin(90)})   {Anthropomorphism};
-\node[font=\small, right, align=left]   at ({1.28*cos(18)},{1.28*sin(18)})   {Animacy};
-\node[font=\small, right, align=left]   at ({1.28*cos(-54)},{1.28*sin(-54)}) {Likeability};
-\node[font=\small, left, align=right]   at ({1.28*cos(-126)},{1.28*sin(-126)}) {Perceived\\Intelligence};
-\node[font=\small, left, align=right]   at ({1.28*cos(-198)},{1.28*sin(-198)}) {Perceived\\Safety};
+\node[font=\small, above, align=center] at
+    ({1.28*cos(90)},{1.28*sin(90)})   {Anthropomorphism};
+\node[font=\small, right, align=left]   at
+    ({1.28*cos(18)},{1.28*sin(18)})   {Animacy};
+\node[font=\small, right, align=left]   at
+    ({1.28*cos(-54)},{1.28*sin(-54)}) {Likeability};
+\node[font=\small, left, align=right]   at
+    ({1.28*cos(-126)},{1.28*sin(-126)}) {Perceived\\Intelligence};
+\node[font=\small, left, align=right]   at
+    ({1.28*cos(-198)},{1.28*sin(-198)}) {Perceived\\Safety};
 
 % Legend
 \draw[navyblue, line width=1.5pt] (-1.1,-1.25) -- (-0.7,-1.25);
 \filldraw[navyblue] (-0.9,-1.25) circle (1.2pt);
-\node[font=\small, right] at (-0.68,-1.25) {Live study (N=11)};
-
+\node[font=\small, right] at (-0.68,-1.25) {Live study (N=16)};
 \draw[emotion, line width=1.5pt, dashed] (-1.1,-1.45) -- (-0.7,-1.45);
 \filldraw[emotion] (-0.9,-1.45) circle (1.0pt);
 \node[font=\small, right] at (-0.68,-1.45) {Video study (N=22)};
 
 \end{tikzpicture}
-\caption[Godspeed questionnaire results for both study groups]{Godspeed questionnaire results for both study groups across
-five dimensions. Solid line represents the live study (N=11) and
-dashed line represents the video-based study (N=22).
-Scores are on a scale of 1 to 5.}
+\caption[Godspeed questionnaire results for both study groups]{Godspeed 
+questionnaire results for both study groups across five dimensions. 
+Solid line represents the live study (N=16) and dashed line represents 
+the video-based study (N=22). Scores are on a scale of 1 to 5.}
 \label{fig:godspeed_overlay}
 \end{figure}
