@@ -1,10 +1,10 @@
 \chapter{Results}
 This chapter presents the results from the human perception study. The results are organized into 3 sections, each covering emotion/intent recognition, Likert-scale ratings, and Godspeed questionnaire results. Where relevant, the results of the live study (N=16) and video-based study (N=22) are presented separately and compared to identify any differences in perception between the two approaches.
-\section{Results}
- 
-\subsection{Emotion Recognition Results}
-%(bar charts for emotion recognition 6 emotions * 2 studies)
-% bar chart for the animation scores
+
+\section{Emotion Recognition Results}
+This section presents the results of the open-ended emotion recognition task, in which participants were asked to describe the emotion or intent the robot was conveying in each of the 6 expressive animations. As previously mentioned, the responses were divided into 3 groups: \textit{intended}, \textit{adjacent}, or \textit{other}. Figure~\ref{fig:recognition_rate} summarizes the recognition rate, i.e., the rate at which the responses were categorized as the intended emotion. IT shows the recognition rates across all six animations for both the live and video-based groups, followed by a detailed breakdown of the response distribution in figures~\ref{fig:emotion_recognition_live} and ~\ref{fig:emotion_recognition_video}.
+
+%\newpage
 \begin{figure}[H]
 \centering
 \input{figures/charts/recognition_rate}
@@ -16,17 +16,36 @@ intended emotion.}
 \label{fig:recognition_rate}
 \end{figure}
 
-\newpage
-\input{figures/charts/emotion_recognition}
+By examining these results, a clear distinction between the animations can be seen. Some animations were more consistently recognized, while others proved more ambiguous in interpretation. \textit{Happiness} and \textit{Anger} achieve near-perfect scores in both live and video-based studies, with live rates of 100\% and video rates of 95\%. Sadness also offers a high recognition rate, with 88\% in the live study and 95\% in the video-based study. The \textit{Curiosity} animation was the weakest performer overall, achieving recognition rates of 25\% in the live study and only 5\% in the video-based study. Results also show that the live study consistently outperformed the video-based study across all animations, except for the \textit{sadness} animation. A notable performance gap was also observed for \textit{Disappointment} (75\% live vs.\ 32\% video) and \textit{Fear} 
+(81\% live vs.\ 36\% video), which are examined in detail below.
 
+Figure ~\ref{fig:emotion_recognition_video} shows how the different responses were classified for each of the 6 emotions. \textit{Anger}, \textit{Happiness}, and \textit{Frustrated} show a low level of variation consistent with their high recognition rates. The remaining 3 animations display a wider variety of answers, indicating that participants interpreted them differently.
+
+
+
+
+\input{figures/charts/emotion_recognition}
 \newpage
 \input{figures/charts/emotion_recognition_live}
+\textbf{Curiosity} had the highest concentration of responses categorized as \textit{other}, with recurring answers including confusion, tiredness, sadness, and frustration. This was also the weakest performing animation overall, achieving recognition rates of only 25\% in the live study and 5\% in the video-based study.
 
-\subsection*{Likert Scale Results}
+\textbf{Frustrated} had the highest concentration of \textit{adjacent} responses while still having a very low concentration of \textit{other} responses. Recurring answers included impatience, disgust, and feeling upset.
+
+\textbf{Fear} also displayed a wide spread of responses across all three categories. In the live study, 81\% of participants correctly identified the intended emotion, whereas the video-based study achieved only 36\%, representing the largest gap between the two groups, particularly for \textit{Frustrated}. Recurring adjacent responses included shyness, sadness, and surprise.
+
+
+
+
+
+\newpage
+\section{Likert Scale Results}
 % Confidence, expressiveness, naturalness per animation
 
 \input{figures/charts/likert_video}
 \input{figures/charts/likert_live}
+
+
+
 
 \subsection*{Godspeed Results}
 % Five dimensions ( spider chart)
@@ -36,7 +55,11 @@ intended emotion.}
 
 \input{figures/charts/godspeed_summary}
 
-\section{RL Locomotion Experiments}
-\subsection{Simulation experiments}
-\subsubsection{Gait performance in simulation}
-\subsubsection{Hardware gait performance}
+
+
+
+
+%\section{RL Locomotion Experiments}
+%\subsection{Simulation experiments}
+%\subsubsection{Gait performance in simulation}
+%\subsubsection{Hardware gait performance}
