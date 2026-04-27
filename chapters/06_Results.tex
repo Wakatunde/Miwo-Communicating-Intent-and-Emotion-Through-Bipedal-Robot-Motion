@@ -44,34 +44,58 @@ Figure ~\ref{fig:emotion_recognition_video} shows how the different responses we
 
 \newpage
 \section{Likert Scale Results}
-Following the emotion/intent recognition question, participants rated each animation across three metrics on a five-point Likert scale. These metrics provide emotion recognition data with complementary insight into the quality of expressive motions beyond recognition rates.
+Following the emotion/intent recognition question, participants rated each animation across three metrics on a five-point Likert scale. These metrics provide the emotion recognition data with complementary insight into the quality of expressive motions beyond what recognition rates alone can reveal.
 
-The mean scores and standard deviations for both study groups are presented in ~\ref{tab:likert_scores} and the distributions are shown in \ref{fig:likert_live} and ~\ref{fig:likert_video}.
+A full summary of the mean scores and standard deviations collected across both studies is presented in \ref{tab:likert_scores}, and the distributions are shown in \ref{fig:likert_live} and \ref{fig:likert_video}. In the context of the graphs below, confidence represents how certain participants were in their emotion/intent classifications, expressiveness represents how well they felt the robot expressed the named emotion/intent, and naturalness represents how natural the robot's movements appeared.
+
+\input{figures/Chapter_6/likert_table}
+
 
 The Likert scores collected during the trials show a strong correlation with the results gathered in the previous section. Animations that were reliably recognized, such as Happiness, Sadness, and Anger, consistently achieved the highest scores across all metrics in both groups. Animations with lower recognition rates, such as Curiosity, Frustration, and Fear, tend to score lower on confidence in particular. This trend also suggests that participants were aware of their own uncertainty when the intended emotion was not clearly communicated. Scores for naturalness were generally more consistent across the different animations than those for expressiveness and confidence. This could indicate that the platform's motion quality was perceived as reliable across the different animations. 
 
+ 
+
+\newpage
 \input{figures/charts/likert_video}
 \input{figures/charts/likert_live}
 
-Consistent with the emotion recognition results, fear is among the weakest-performing emotions. The fear animation in the live study had the lowest mean confidence (3.00) and the highest standard deviation (1.32). Some participants reported a high level of confidence, while others reported none. This could suggest that the intended emotion was not communicated clearly. 
-Sadness had the lowest standard deviation in expressiveness in the live study, at 0.48. This suggests that this is one of the most consistent animations, as all participants responded with similar values.
+\newpage
+Consistent with the emotion recognition results, fear is among the weakest-performing emotions. The fear animation in the live study had the lowest mean confidence (3.00) and the highest standard deviation (1.32). Some participants reported a high level of confidence, while others reported none. This is consistent with the low recognition rate of 
+36\% in the video study and 25\% in the live study, suggesting that fear was among the least clearly communicated animations overall.
 
+Sadness was one of the strongest performing animations in the live study, achieving consistently high mean scores across all metrics: confidence (4.75), expressiveness 
+(4.69), and naturalness (4.44). Sadness also had the lowest standard deviation in expressiveness in the live study, at 0.48. This suggests that this is one of the most consistent animations, as all participants responded with similar values.
 
+Happiness and anger also scored high across all metrics in both study groups. Anger received the highest confidence scores across both studies, with 4.5 in the video-based study and 4.75 in the live study, tying it with Sadness. Both animations also show a higher standard deviation in the video-based study than in the live study, suggesting a more varied perception, which is consistent with the classification results previously discussed.
 
 Animations with lower recognition rates tend to show higher naturalness scores than confidence scores. The robot's motion was perceived as natural, even when the displayed motion was unclear, suggesting that motion quality is not the issue; rather, the emotional design is.
 
 The Frustrated motion during the video trial consistently shows high SDs (1.09-1.22) across all metrics, indicating that the response was very divided among participants. Some found the motion very expressive, while others did not.
 
-The biggest difference between the 2 studies is how the groups scored the Frustrated animation. The Live group scored the animation much higher overall, with a confidence of 3.88 vs 3.18 and expressiveness at 4.06 vs 3.32. This is the largest gap between the groups and is consistent with the recognition rate gap as well.
+The biggest difference between the two studies is how the groups scored the Frustrated animation. The Live group scored the animation much higher overall, with a confidence of 3.88 vs 3.18 and expressiveness at 4.06 vs 3.32. This is the largest gap between the groups and is consistent with the recognition rate gap.
+
+An overall trend emerges when comparing the results of the two study groups. The live group consistently reported higher scores across all metrics compared to the video-based study, with the exception of the Fear animation. This pattern could suggest that witnessing the robots' physical presence provided additional insight that aided the interpretation of emotional states, especially in the more ambiguous animations. The Likert results collected across both studies reveal that the platform produces natural, expressive motion with consistently high scores. It is also worth highlighting that the clarity of emotional communication varies considerably depending on the specific animation being displayed. 
 
 
-\input{figures/Chapter_6/likert_table}
+%Live study: 
+%mean confidence = 4 (3.56-4.75
+%mean expressiveness: 4.17 (3.56-4.69)
+%mean naturalness 4.06 (3.62-4.44)
+
+%video based study: 
+%mean confidence = 3.78 (3.09-4.55)
+%mean expressiveness: 3.98 (3.32-4.55)
+%mean naturalness: 3.78
 
 
 
 
 
-\subsection*{Godspeed Results}
+
+
+
+\newpage
+\section{Godspeed Results}
 % Five dimensions ( spider chart)
 \input{figures/charts/godspeed_video.tex} 
 
