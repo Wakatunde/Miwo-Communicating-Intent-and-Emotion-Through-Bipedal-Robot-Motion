@@ -63,9 +63,8 @@ Designing these links was one of the more challenging aspects of the head assemb
 \textbf{The face link} forms the structural base and was designed to be both rigid and lightweight to reduce backlash and strain on the roll, pitch, and yaw motors controlling the head. The face link is mounted directly to the head roll motor and serves as the housing for a significant amount of electrical components. These include: the NVIDIA Orin serving as the onboard computer, two 1.46-inch LCDs for the eyes, two 9g servos for antenna actuation, an Arduino nano for servo control, a U2D2 board for communicating with the Dynamixel servos, an Adafruit servo driver board, a voltage regulator, and multiple USB cables allowing for serial communication across all components through the NVIDIA Orin nano. The face link was also designed to mount components neatly. Each component would have a dedicated mounting location with either raised screw bosses extruding from the bed of the face link or recessed grooves that allow components to be seated in place before being fastened. Some components required dedicated mounts, such as the two LCD screens and the two 9g servos. Additionally, a series of spare mounting holes was included in the base of the face link to allow for future components to be added without requiring a redesign of the full face link. To complete the head design, a simple, lightweight, easily removable top cover was added to provide access to the robot's internal components.
 
 It should be noted that the face link was originally designed around a different set of internal components. When the initial components did not work as intended, they were replaced, but the face link design was retained because it still provided sufficient, compatible mounting for the new components. By designing the face link with spare mounting capabilities, it could accommodate hardware changes without requiring a full redesign.
+
 \newpage
-
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/head_architecture.png}
@@ -138,7 +137,7 @@ The software system can be divided into 3 different hierarchical levels, as illu
         \centering
         \includegraphics[width=0.6\textwidth]{figures/Chapter_4/Untitled Diagram.drawio.png}
     }}
-    \caption{[Overview of the Miwo software architecture]Overview of the Miwo software architecture showing 
+    \caption[Overview of the Miwo software architecture]{Overview of the Miwo software architecture showing 
     the three main layers: hardware interface, state estimation, 
     and motion control.}
     \label{fig:software_architecture}
@@ -168,7 +167,7 @@ The onboard computer controls the robot's eyes via an independent node. The node
 
 \subsection{State Estimation}
 \subsubsection*{IMU pipeline}
-The IMU pipeline processes raw sensor data from the Phidgets spatial IMU to produce a stable estimate of the robot's orientation. The raw data from the IMU is published to the Phidgets ROS2 driver and then fed into a Madgwick filter that fuses the 2 sensor streams to produce a quaternion orientation estimate. The Madgwick filter was chosen for its computational efficiency and accurate orientation tracking, which match the system's requirements. The resulting orientation is then continuously published as a standard ROS2 message to a separate state node for further processing.
+The IMU pipeline processes raw sensor data from the Phidgets spatial IMU to produce a stable estimate of the robot's orientation. The raw data from the IMU is published to the Phidgets ROS2 driver and then fed into a Madgwick filter \cite{madgwick_efficient_2010} that fuses the 2 sensor streams to produce a quaternion orientation estimate. The Madgwick filter was chosen for its computational efficiency and accurate orientation tracking, which match the system's requirements. The resulting orientation is then continuously published as a standard ROS2 message to a separate state node for further processing.
 
 \subsubsection*{Robot State Node}
 The robot state node serves as the central state monitor for the robot. The node subscribes to the filtered IMU messages and the robot's Cartesian body state. This node also serves as a simple GUI for the robot's user, displaying control modes, available actions, the published roll, pitch, and yaw in degrees, and the robot's Cartesian state in x, y, and z. Upon startup, the node will also perform an automatic IMU orientation calibration by collecting IMU data for 2 seconds while the robot sits in the calibration stand, setting the current orientation to [0,0,0]. A manual recalibration service is also provided, allowing the user to reset the IMU offsets at any point during testing.
@@ -218,7 +217,8 @@ Body pose commands are expressed in the robot's base frame and represent a 6-DOF
         \textit{Figure placeholder — IK geometry diagram}
         \vspace{3cm}
     }}
-    \caption{Geometric illustration of the analytical IK 
+    \caption[Geometric illustration of the analytical IK 
+    solution for Miwo]{Geometric illustration of the analytical IK 
     solution for Miwo. Left: hip roll geometry in the 
     frontal plane showing the shoulder offset and projection 
     into the leg plane. Right: two-link planar IK in the 
@@ -268,10 +268,7 @@ foot parallel to the ground throughout all body poses:
 \end{equation}
 
 The hip roll angle is mirrored for the left leg to account 
-for its mirrored geometry. The body pose controller applies body roll and pitch compensations before calling 
-the IK solver, ensuring that foot positions correctly 
-satisfy the commanded body orientation across the full 
-range of expressive motion. %fix
+for its mirrored geometry. The body pose controller applies body roll and pitch compensations before calling the IK solver, ensuring that foot positions correctly satisfy the commanded body orientation across the full range of expressive motion. %fix
 
 \subsection{Idle Animation}
 \subsection{Expressive Animations}
@@ -279,8 +276,8 @@ range of expressive motion. %fix
  
 
 
-\section{Locomotion via Reinforcement Learning}
-\subsection{Simulation environment setup}
-\subsection{Observation and action space}
-\subsection{Reward function design}
-\subsection{Training setup and hyperparameters}
+%\section{Locomotion via Reinforcement Learning}
+%\subsection{Simulation environment setup}
+%\subsection{Observation and action space}
+%\subsection{Reward function design}
+%\subsection{Training setup and hyperparameters}

@@ -1,1 +1,20 @@
+
+
 \chapter{Conclusion}
+The work completed in this thesis was motivated by the following three research objectives: 
+\begin{enumerate}
+    \item Design and construct a highly articulated bipedal robot platform capable of producing a wide range of expressive motions using accessible and commonly available manufacturing methods and hardware components.
+
+    \item Develop a software framework for generating and executing expressive motion on the platform, capable of producing a diverse range of motions that clearly communicate distinct emotions and intents.
+
+    \item Evaluate the expressive capabilities of the platform through a human perception study, assessing the degree to which independent observers can reliably identify the intended emotion from the robot's motion alone.
+\end{enumerate}
+
+To achieve the above research objectives. In contrast, this thesis presents the design, construction, and evaluation of MiWo, an open-source bipedal robot platform for expressive human-robot interaction. The platform was constructed entirely from 3D-printed PLA components and commercially available actuators, sensors, and other components. The resulting platform is a 16-DOF system capable of coordinated full-body motion. As a further contribution to the research field, the CAD files, code, and documentation were all released as open source, allowing the platform to be replicated or built upon by other researchers or developers. 
+
+A ROS2 software framework was developed for controlling the robot and for designing and executing expressive motion. The final framework combines an analytical inverse kinematics solver with handcrafted animation nodes, each responsible for conveying an emotional state or intent. The animation nodes were designed with principles drawn from character animation, including anticipation, slow-in and slow-out, secondary action, and exaggeration. The resulting framework produced coordinated motion sequences across the full kinematic chain, with complementary eye expressions and antenna movements used as secondary actions to further enhance the expressive capabilities of the robot. The robot was equipped with six different animations, each designed to communicate a distinct emotion or intent clearly.
+
+The expressive capabilities of the platform were evaluated through human perception studies involving 38 participants across a live (N=16) and a video-based (N=22) study groups. The Animations corresponding to basic emotions, including \textit{Happiness}, \textit{Fear}, \textit{Sadness}, and \textit{Anger}, achieved high-scoring recognition rates in one or both study groups. In contrast, more cognitively complex states such as \textit{Curiosity} and \textit{Frustrated} proved more ambiguous, yielding lower scores in recognition rates.  Likert scale results confirmed that naturalness received consistent scores across all animations, suggesting that motion quality was not a limiting factor for the weaker animations, but rather their motion design. Likert scale results also produced consistently high scores in both confidence and naturalness for the basic emotions, showing that the robot was capable of expressing a range of emotions with confidence. The Godspeed questionnaire 
+revealed a high likability and perceived safety, with a high degree of consistency between the two groups, further demonstrating the robot's potential for human-robot interactions.
+
+The results of the studies demonstrate that a small, open-source, 3D-printed biped robot is capable of communicating a range of emotional states through motion in a manner that is reliably recognized and positively perceived by human observers. It can be argued that the robot can, with a high recognition rate, communicate basic emotions, but emotional or cognitive states that are more ambiguous were not recognized at the same level. The work carried out in this thesis contributes to the research field by providing a fully documented, accessible platform with a set of evaluated expressive animations, offering a sturdy foundation for further research and development into motion design and human-robot interactions.
